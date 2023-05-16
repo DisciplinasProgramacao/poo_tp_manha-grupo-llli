@@ -3,199 +3,102 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 /*
-* Classe Catalogo: Associação com "Cliente", Agregação com "Serie"
-*
+* Classe Cliente: Agregação com "Plataforma"
 */
-public class Catalogo {
+public class Cliente{
     
-    public List <Serie> catalogo;
+    private String nome;
+    private String login;
+    private String senha;
+    private List <Serie> seriesAssistirFuturamente;
+    private List <Serie> seriesJaAssistidas;
 
-    /*
-    * Construtor. Catalogo cria uma lista de series vazia
-    */
-    Catalogo(){
 
-        catalogo = new ArrayList<Serie>();
-    }
 
-    /*
-    * Adiciona uma nova serie a lista de serie presente no catalogo
-    * @param novaSerie que sera adicionada
-    */
-    public boolean adicionarSerie(Serie novaSerie){
-
-        catalogo.add(novaSerie);
-
-        if (catalogo.isEmpty())return false;
-        
-        else return true;
-    }
 
     /*
     *
-    * Remove uma serie da lista de serie do catalogo
-    * @param nome da serie a ser removida
+    * Construtor. Um Cliente para ser contruida precisa no minimo dos parametros abaixo
+    * @param nome, para definir um nome para Cliente
+    * @param login, para definir um login para Cliente
+    * @param senha, para definir uma Senha para o CLiente
     */
-    public boolean removerSerie (String nome){
+    Cliente(String nome,String login,String senha){
+
+        init(nome,login, senha);
+    }
+
+
+
+
+
+    /*
+    *
+    * Vai instaciar os atributos da serie, Além de instanciar as listas de seriesJaAssistidas e seriesAssistirFuturamente
+    * @param nome, para definir um nome para Cliente
+    * @param login, para definir um login para Cliente
+    * @param senha, para definir uma Senha para o CLiente
+    */
+    private void init (String nome,String login,String senha){
         
-        for (int i = 0; i < this.catalogo.size(); i++){
-            
-            Serie temp = catalogo.get(i);
-            
-            if (nome.toLowerCase().equals(temp.getNome().toLowerCase())){
-                
-                this.catalogo.remove(i);
-                
-                return true;
-            }
-            
-        }
-        return false;
+        seriesJaAssistidas = new ArrayList<Serie>();
+        seriesAssistirFuturamente = new ArrayList<Serie>();
+
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+
     }
     
-
-    /*
-    * Filtra as series presentes no catalogo pelo nome
-    * retorna uma lista de serie com o nome desejado
-    * @param nome a ser procurado no catalogo
-    */
-    public List<Serie> filtrarNome (String nome){
-
-        List <Serie> listaFiltradaPorNome = new ArrayList<Serie>();
-
-        for (int i = 0; i < catalogo.size(); i++){
-            
-            Serie temp = catalogo.get(i);
-            
-            String nomePadronizado = nome.toLowerCase();
-            String nomePadronizado2 = temp.getNome().toLowerCase();
-
-            if (nomePadronizado.equals(nomePadronizado2)){
-                listaFiltradaPorNome.add(temp);
-            }
-            
-        }
-        return listaFiltradaPorNome;
-    }
-
-
-
-    /*
-    * Filtra as series presentes no catalogo pelo genero
-    * retorna uma lista de serie com o genero desejado
-    * @param genero a ser procurado no catalogo
-    */
-    public List<Serie>filtrarGenero(String genero){
-
-        List <Serie> listaFiltradaPorGenero = new ArrayList<Serie>();
-
-        for (int i = 0; i < catalogo.size(); i++){
-
-            Serie temp = catalogo.get(i);
-            List <String> tempGenero = temp.getGenero();
-
-            
-            for (int j = 0; j < tempGenero.size(); j++){
-
-                if (genero.toLowerCase().equals(tempGenero.get(j).toLowerCase())){
-                    
-                    listaFiltradaPorGenero.add(temp);
-                    break;
-                }
-                
-            }
-
-        }
-        return listaFiltradaPorGenero;
-    }
-
-
-
-    /*
-    * Filtra as series presentes no catalogo pelo idioma
-    * retorna uma lista de serie com o idioma desejado
-    * @param idioma a ser procurado no catalogo
-    */
-    public List<Serie>filtrarIdioma(String idioma){
-
-        List <Serie> listaFiltradaPorIdioma = new ArrayList<Serie>();
-
-        for (int i = 0; i < catalogo.size(); i++){
-            
-            Serie temp = catalogo.get(i);
-            List <String> tempIdioma = temp.getIdioma();
-            
-            for (int j = 0; j < tempIdioma.size(); j++){
-
-                if (idioma.toLowerCase().equals(tempIdioma.get(j).toLowerCase())){
-                    
-                    listaFiltradaPorIdioma.add(temp);
-                    break;
-                }
-                
-            }
-
-        }
-        return listaFiltradaPorIdioma;
-    }
-
     
 
 
     /*
-    * Junta listas de series
-    * Caso o cliente deseja fazer uma filtragem de mais de um tipo ele realiza as filtragens. 
-    * Pega a lista que retornar e passa como input nessa funcao ex.
-    * retorna uma lista de serie.
-    * @param Lista de Serie A
-    * @param Lista de Serie B
+    * Vai adicionar Series a um tipo de lista, no input char tipo lista
+    * @param Serie, para definir qual serie sera adiconada na lista
+    * @param tipoLista, para definir se vai ser adicionado na lista de assistir futuramente ou ja ssistidos
     */
-    public List<Serie> juntarListasFiltradas (List <Serie> a, List <Serie> b){
-
-        List <Serie> catalogoFiltrado = new ArrayList<Serie>();
-
-        for (int i = 0; i < a.size(); i++){
+    public void adicionarSeries(Serie serie, char tipoLista ){
+        
+        
+        if (0 == Character.valueOf(tipoLista).compareTo(Character.valueOf('F'))){
             
-            catalogoFiltrado.add(a.get(i));
-        }
-
-        for (int i = 0; i < b.size(); i++){
-            
-            catalogoFiltrado.add(b.get(i));
-        }
-
-
-        return filtrarDuplicadas(catalogoFiltrado);
-    }
-
-
-    
-    /*
-    * Verifica se existem series duplicadas na lista e romove elas e retorna uma lista de serie sem series repetidas
-    * @param Lista de Serie A
-    */    
-    private List<Serie> filtrarDuplicadas (List <Serie> a){
-
-        Serie temp;
-        Serie temp2;
-
-        for (int i = 0; i < a.size(); i++){
-
-            temp = a.get(i);
-            for (int j = i+1; j < a.size(); j++){
-
-                temp2 = a.get(j);
-
-                 if (temp.getNome().toLowerCase().equals(temp2.getNome().toLowerCase())){
-                     
-                    a.remove(j);
-                }
+            //System.out.println("Serie adiconada: "+serie.getId()+" na lista "+tipoLista+"\n");
+            seriesAssistirFuturamente.add(serie);
+             
             }
-        }
+            else if (0 == Character.valueOf(tipoLista).compareTo(Character.valueOf('A'))){
+                
+                seriesJaAssistidas.add(serie);
+                serie.registrarAudiencia();
 
-        return a;
+                //System.out.println("Serie adiconada: "+serie.getId()+" na lista "+tipoLista+"\n");
+            }
+        
+        return;       
     }
 
 
+
+    /*
+    * Vai retirar uma Serie Da lista de Series para assistir futuramente
+    * @param posicao, para saber qual Serie sera removida
+    */
+    public void removerSerieAssistirFuturamente(int posicao){
+        
+        seriesAssistirFuturamente.remove(posicao);
+    }
+
+    public String toString(){
+
+        return (this.nome+";"+this.login+";"+this.senha);
+    }
+
+
+    public String getLogin(){
+
+        return this.login;
+    }
 }
