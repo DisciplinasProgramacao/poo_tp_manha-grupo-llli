@@ -1,59 +1,64 @@
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 
 /*
-* Classe Serie: Agregação com "Catalogo"
+* Classe Serie: Agregação com "Plataforma"
 */
 public class Serie{
 
     private int audiencia;
-    private static int proximoID = 1;
-    private int ID;
+    
+    private int idSerie;
     private String nome;
-    private int quantidadeDeEpisodeos;
+    private Date dataDeLancamento;
+
     private List <String> genero;
     private List <String> idioma;
 
-    /*
-    *
-    * Construtor. Uma serie para ser contruida precisa no minimo dos parametros nome e quantidade de episodeos.
-    * Caso eles não forem passados a serie sera contruida da seguinte maneira:
-    * @param nome = ""
-    * @param quantideDeEpisodeos = 0
-    */
-    Serie(){
-        
-        init("", 0);
-    }
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
+
     /*
     *
     * Construtor. Uma serie para ser contruida precisa no minimo dos parametros abaixo
+    * @param idSerie, para definir um id para série
     * @param nome, para definir um nome para série
-    * @param quantideDeEpisodeos, para definir a quantidade de episodeos da serie
+    * @param dataDeLancamento, para definir a data  da serie
     */
-    Serie(String nome, int quantidadeDeEpisodeos){
 
-        init (nome, quantidadeDeEpisodeos);
+
+    Serie (String idSerie, String nome, String dataDeLancamento){
+        
+        init (idSerie, nome, dataDeLancamento);
     }
 
 
     /*
-    * Vai instaciar os atributos da serie, alem de criar uma lista de generos e idiomas vazias e definir i ID da serie
+    * Vai instaciar os atributos da serie
+    * @param idSerie, para definir um id para série
     * @param nome, para definir um nome para série
-    * @param quantideDeEpisodeos, para definir a quantidade de episodeos da serie
+    * @param dataDeLancamento, para definir a data  da serie
     */
-    private void init (String nome, int quantidadeDeEpisodeos){
+    private void init (String idSerie, String nome, String dataDeLancamento){
 
-        this.audiencia = 0;
-        this.ID = this.proximoID;
-        this.proximoID++;
-        this.nome = nome;
-        this.quantidadeDeEpisodeos = quantidadeDeEpisodeos;
-        this.genero = new ArrayList<String>();
-        this.idioma = new ArrayList<String>();
+        try {
+            
+            //Apenas numeros podem ser convertidos em Int
+            if (idSerie.matches("-?\\d+")) this.idSerie = Integer.parseInt(idSerie);
+
+            this.nome = nome;
+            this.dataDeLancamento = dateFormat.parse(dataDeLancamento);
+            this.audiencia = 0;
+        
+        } catch (ParseException e){
+            System.out.println("Erro ao converter");
+            // TODO: handle exception
+        }
     }
 
 
@@ -63,17 +68,10 @@ public class Serie{
     * Todos os clientes possuem uma lista de series ja assistidas que é recebida como input nessa função
     * @param List <Serie> seriesJaAssistidas,
     */
-    public void registrarAudiencia(List <Serie> seriesJaAssistidas){
+    public void registrarAudiencia(){
 
-        for (int i = 0; i < seriesJaAssistidas.size(); i++){
-
-            Serie temp = seriesJaAssistidas.get(i);
-
-            if (this.ID == temp.getId()){
-
-                audiencia++;
-            }
-        }
+        this.audiencia++;
+        return;
     }
 
 
@@ -82,7 +80,12 @@ public class Serie{
     * @param tipoGenero que sera adicionada
     */
     public boolean adicionarGenero (String tipoGenero){
-    
+
+        if(genero.isEmpty()){
+            
+            this.genero = new ArrayList<String>();
+        }
+        
         this.genero.add(tipoGenero);
         
         if (this.genero.isEmpty()) return false;
@@ -97,6 +100,11 @@ public class Serie{
     */
     public boolean adicionarIdioma (String tipoIdioma){
 
+        if (idioma.isEmpty()){
+
+            this.idioma = new ArrayList<String>();
+        }
+        
         this.idioma.add(tipoIdioma);
         
 
@@ -151,13 +159,14 @@ public class Serie{
         return false;
     }
 
+    
     /*
     * Printa os atributos da serie caso necessario
     */
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
-        return (super.toString()+" Serie Id:" +this.ID+"| Nome: "+this.nome+"| Quantidade De Episódeos: " +this.quantidadeDeEpisodeos+"\n");
+
+        return (this.idSerie+";"+this.nome+";"+this.dataDeLancamento);
     }   
 
 
@@ -214,7 +223,7 @@ public class Serie{
 
     public int getId(){
 
-        return this.ID;
+        return this.idSerie;
     }
 
     public List<String> getGenero(){
