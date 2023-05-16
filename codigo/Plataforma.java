@@ -119,8 +119,7 @@ public class Plataforma {
             // Cria um objeto Scanner para ler o arquivo
             Scanner scanner = new Scanner(new File(nomeArquivo));
             FileWriter fw = new FileWriter("arquivosDeLeitura/Audiencia.txt");
-
-            int contador = 0;
+            
             // Lê cada linha do arquivo até o final
             while (scanner.hasNextLine()) {
                 
@@ -134,9 +133,6 @@ public class Plataforma {
 
                     clienteTemporario.adicionarSeries(serieTemporaria, campos[1].charAt(0));
                 }
-
-                System.out.println(contador);
-                contador++;
             }
 
             // Fecha o Scanner após a leitura do arquivo
