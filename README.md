@@ -8,6 +8,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 * Igor Robert Viera Castro
 * Leonardo Ribeiro Andrade
 * Luísa Ferreira Braz Machado
+* Victor Luan Teles
 
 ## Professores responsáveis
 
