@@ -8,6 +8,7 @@ Trabalho em grupo desenvolvido na matéria de POO
 * Igor Robert Viera Castro
 * Leonardo Ribeiro Andrade
 * Luísa Ferreira Braz Machado
+* Victor Luan Teles
 
 ## Professores responsáveis
 
