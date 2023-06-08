@@ -216,7 +216,37 @@ public class Cliente{
     * Retorna login do cliente 
     */
     public String getLogin(){
-
         return this.login;
     }
+
+    public String getNome(){
+
+        return this.nome;
+    }
+
+    public String getSenha(){
+
+        return this.senha;
+    }
+
+    public void getNomeMidiasJaAssistidas() {
+        System.out.println("Lista geral de filmes e séries já assistidos");
+        for (Midia midia : mapMidiaJaAssistidas.values()) {
+            System.out.println("==========================");
+            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
+        }
+    }
+
+
+    public void getNomeMidiasAssistirFuturamente() {
+        System.out.println("Lista geral de filmes e séries que desejo assistir futuramente");
+        for (Midia midia : mapMidiaAssistirFuturamente.values()) {
+            System.out.println("==========================");
+            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
+        }
+    }
+
+
+
+
 }
