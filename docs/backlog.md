@@ -21,9 +21,10 @@ Atualizado em 06/06/20022
 
 | Tarefa      | Responsável |
 | ----------- | ----------- |
-| 1. Garantir a robustez do sistema principal (Utilizar exceções)      | Igor ➕➖     |
-| 2.Limitar Generos   | Igor  ❌    |
-| 3. Adicionar Profissões aos Clientes | Igor  ➕➖ | 
-| 4. Definir algumas mídias como Lançamento | Igor  ➕➖ | 
-| 5. Permitir que apenas os clientes “profissionais” – aqueles que, de alguma maneira, trabalham diretamente com mídias Possam assistir mídias lançamentos| Igor  ➕➖ | 
-| 6. incorporar ao aplicativo um módulo de relatórios gerenciais | Igor  ➕➖ | 
+| 1. Desenvolvimento Menu principal      | Vitor ➕➖     |
+| 2. Garantir a robustez do sistema principal (Utilizar exceções)      | Igor ➕➖     |
+| 3.Limitar Generos   | Igor  ❌    |
+| 4. Adicionar Profissões aos Clientes | Igor  ➕➖ | 
+| 5. Definir algumas mídias como Lançamento | Igor  ➕➖ | 
+| 6. Permitir que apenas os clientes “profissionais” – aqueles que, de alguma maneira, trabalham diretamente com mídias Possam assistir mídias lançamentos| Igor  ➕➖ | 
+| 7. incorporar ao aplicativo um módulo de relatórios gerenciais | Igor  ➕➖ | 
