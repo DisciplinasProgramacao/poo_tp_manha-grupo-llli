@@ -10,6 +10,7 @@ import java.util.Set;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+
 /*
 * Classe Plataforma: Agregação com "Midia" e "Cliente"
 */
@@ -71,6 +72,10 @@ public class Plataforma {
  
         }
     }
+
+
+
+
 
 
 
@@ -215,6 +220,7 @@ public class Plataforma {
 
     }
 
+  
 
 
     /*
@@ -227,6 +233,16 @@ public class Plataforma {
 
     }
 
+
+public void getNomeMidias() {
+    System.out.println("Lista geral de filmes e séries");
+    for (Midia midia : midias.values()) {
+        System.out.println("==========================");
+        System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
+    }
+
+
+}
 
     
      
