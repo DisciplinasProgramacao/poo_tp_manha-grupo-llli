@@ -21,13 +21,18 @@ Atualizado em 09/06/20022
 
 | Tarefa      | Responsável |
 | ----------- | ----------- |
+| 0. Definir exceções das classes do sistema |   |
 | 1. Desenvolvimento Menu principal      | Vitor ➕➖     |
 | 2. Criar opções de Filtragens no Menu Principal     | Vitor ➕➖     |
 | 3. Criar opções de Adicionar avaliação ou comentário      | Vitor ➕➖     |
 | 4. Criar opções de Adicionar a lsita de assistir futuramente      | Vitor ➕➖     |
-| 5. Garantir a robustez do sistema principal (Utilizar exceções)      | Igor ➕➖     |
+| 5. Garantir a robustez do sistema principal (Utilizar exceções das classes do sistema)      | Vitor ➕➖   |
 | 6.Limitar Generos   | Lucas  ➕➖    |
-| 7. Adicionar Profissões aos Clientes | Igor  ➕➖ | 
+| 7. Adicionar Profissões aos Clientes | Lucas  ➕➖ | 
 | 8. Definir algumas mídias como Lançamento | Lucas  ➕➖ | 
-| 9. Permitir que apenas os clientes “profissionais” – aqueles que, de alguma maneira, trabalham diretamente com mídias Possam assistir mídias lançamentos| Igor  ➕➖ | 
-| 10. incorporar ao aplicativo um módulo de relatórios gerenciais | Lucas  ➕➖ | 
+| 9. Permitir que apenas os clientes “profissionais” – aqueles que, de alguma maneira, trabalham diretamente com mídias Possam assistir mídias lançamentos| Lucas  ➕➖ | 
+| 10. módulo de relatórios relativos a clientes |   ➕➖ | 
+| 11. módulo de relatórios relativos a mídias |   ➕➖ | 
+| 12. Testar todas as funcionalidades do app |  |
+| 13. Conferir documentação de todas as classes |  |
+| 14. Conferir UML e aderência das classes |  |
