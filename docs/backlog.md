@@ -1,5 +1,5 @@
 # Backlog do projeto Stream POO
-Atualizado em 06/06/20022
+Atualizado em 09/06/20022
 
 ## Tarefas terminadas
 
@@ -26,8 +26,8 @@ Atualizado em 06/06/20022
 | 3. Criar opções de Adicionar avaliação ou comentário      | Vitor ➕➖     |
 | 4. Criar opções de Adicionar a lsita de assistir futuramente      | Vitor ➕➖     |
 | 5. Garantir a robustez do sistema principal (Utilizar exceções)      | Igor ➕➖     |
-| 6.Limitar Generos   | Igor  ➕➖    |
+| 6.Limitar Generos   | Lucas  ➕➖    |
 | 7. Adicionar Profissões aos Clientes | Igor  ➕➖ | 
-| 8. Definir algumas mídias como Lançamento | Igor  ➕➖ | 
+| 8. Definir algumas mídias como Lançamento | Lucas  ➕➖ | 
 | 9. Permitir que apenas os clientes “profissionais” – aqueles que, de alguma maneira, trabalham diretamente com mídias Possam assistir mídias lançamentos| Igor  ➕➖ | 
-| 10. incorporar ao aplicativo um módulo de relatórios gerenciais | Igor  ➕➖ | 
+| 10. incorporar ao aplicativo um módulo de relatórios gerenciais | Lucas  ➕➖ | 
