@@ -19,7 +19,7 @@ public class Plataforma {
     //#region controle
     private Map<String, Cliente> clientes;
     private Map<String, Midia> midias;
-
+    public IFiltragem aplicadorDeFiltros = new FiltrosDeMidias();
 
     //#endregion
 
@@ -234,109 +234,16 @@ public class Plataforma {
     }
 
 
-public void getNomeMidias() {
-    System.out.println("Lista geral de filmes e séries");
-    for (Midia midia : midias.values()) {
-        System.out.println("==========================");
-        System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
-    }
+    public void getNomeMidias() {
 
+        System.out.println("Lista geral de filmes e séries");
 
-}
-
-    
-     
-    
-    /*
-    * Filtra as Midia existentes na plataforma pelo nome
-    * retorna um Set de Midias com os nome desejado
-    * @param nome a ser procurado no catalogo
-    */
-    public Set<Midia> filtrarNome (String nome){
-        
-        Set <Midia> setFiltradoPorNome = new HashSet<Midia>();;
-    
-        for (Map.Entry<String, Midia> entry : this.midias.entrySet()){
-
-            Midia midia = entry.getValue();
-
-            if (midia.getNome().equals(nome)){
-
-                setFiltradoPorNome.add(midia);
-            }
-
+        for (Midia midia : midias.values()) {
+            System.out.println("==========================");
+            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
         }
 
-        return setFiltradoPorNome;
-    }
-    
-    
 
-    /*
-    * Filtra as Midias existentes pelo genero
-    * retorna um Set de Midias com o genero desejado
-    * @param genero a ser procurado no catalogo
-    */
-    public Set<Midia>filtrarGenero(String filtrarPorGenero){
-        
-        Set<Midia> midiasGenerosIguais = new HashSet<>();
-
-        for (Map.Entry<String, Midia> entry : this.midias.entrySet()){
-
-            Midia midia = entry.getValue();
-
-            if (midia.compararGenero(filtrarPorGenero)){
-
-                midiasGenerosIguais.add(midia);
-            }
-
-        }
-
-       
-        return midiasGenerosIguais;
-    }
-    
-    
-
-    /*
-    * Filtra as Midias Existentes no catalogo pelo idioma
-    * retorna um Set de Midias com o idioma desejado
-    * @param idioma a ser procurado no catalogo
-    */
-    public Set<Midia>filtrarIdioma(String filtrarPorIdioma){
-        
-        Set<Midia> midiasIdiomasIguais = new HashSet<>();
-
-        for (Map.Entry<String, Midia> entry : this.midias.entrySet()){
-
-            Midia midia = entry.getValue();
-
-            if (midia.compararGenero(filtrarPorIdioma)){
-
-                midiasIdiomasIguais.add(midia);
-            }
-
-        }
-
-       
-        return midiasIdiomasIguais;
-    }
-
-    
-
-
-    /*
-    * Junta Set de Midias
-    * Caso o cliente deseja fazer uma filtragem de mais de um tipo ele realiza as filtragens. 
-    * @param Lista de Serie A
-    * @param Lista de Serie B
-    * @return retorna um Set único com o set "a" adicionado no Set b.
-    */
-    public Set<Midia> juntarFiltros (HashSet <Midia> a, HashSet <Midia> b){
-        
-        b.addAll(a);
-
-        return b;
     }
     
 }
