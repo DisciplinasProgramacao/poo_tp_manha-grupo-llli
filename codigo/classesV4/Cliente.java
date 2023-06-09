@@ -16,6 +16,8 @@ public class Cliente{
     private String senha;
     private Icomentar tipoCliente;
     
+    public IFiltragem aplicadorDeFiltros = new FiltrosDeMidias();
+    
     private Stack<Avaliacoes> avaliacoesFeitas;
 
     private Map<Integer, Midia> mapMidiaAssistirFuturamente;
