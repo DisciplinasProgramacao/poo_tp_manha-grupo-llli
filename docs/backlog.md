@@ -6,14 +6,14 @@ Atualizado em 09/06/20022
 | Tarefa      | Responsável |
 | ----------- | ----------- |
 | 1. Implementação das classes Cliente, Serie e PlataformaStreaming como originalmente planejadas      | Igor  ✔️     |
-| 2. Atualização do diagrama original para contemplar requisito de carga de dados   | Vitor ✔️       |
+| 2. Atualização do diagrama original para contemplar requisito de carga de dados   | Igor ✔️       |
 | 3. Implementação dos métodos para carga de dados de séries, clientes e audiência em funcionamento   | Igor ✔️       |
-| 4. Atualização do diagrama para abrigar o novo tipo de mídia: Filme   | Vitor ✔️       |
+| 4. Atualização do diagrama para abrigar o novo tipo de mídia: Filme   | Igor ✔️       |
 | 5. Implementação da lógica de carga de dados do catálogo de filmes   | Igor ✔️       |
 | 6. Implementação do cadastro de clientes, filmes e séries   | Igor ✔️       |
 | 8. Salvar dados de clientes, filmes e séries  | Igor ✔️     |
 | 9. Implementação do sistema de avaliação de mídias: uma mídia tem sua avaliação média  | Igor ✔️     |
-| 10. Um cliente não pode avaliar a mesma mídia duas vezes;  | Vitor ✔️     |
+| 10. Um cliente não pode avaliar a mesma mídia duas vezes;  | Igor ✔️     |
 | 11.Clientes podem ser regulares ou especialistas, e estes últimos podem adicionar comentários à avaliação  | Igor ✔️     |
 ----
 
