@@ -342,6 +342,17 @@ public class Midia{
         return this.idMidia;
     }
 
+    public Set<String> getGeneros(){
+
+        return this.genero;
+    }
+
+
+    public Set<String> getIdiomas(){
+
+        return this.idioma;
+    }
+
     public BigDecimal getMediaAvaliacao(){
 
         calcularMediaAvalicao();
