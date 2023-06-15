@@ -337,6 +337,18 @@ public class Midia{
         return this.nome;
     }
 
+    public Set<String> getGeneros(){
+
+        return this.genero;
+    }
+
+
+    public Set<String> getIdiomas(){
+
+        return this.idioma;
+    }
+    
+    
     public int getId(){
 
         return this.idMidia;
