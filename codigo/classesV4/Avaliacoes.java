@@ -31,6 +31,7 @@ public class Avaliacoes {
     */
     private void init (){
         
+        // APenas para testar this.dataDaAvaliacao = this.dataDaAvaliacao.minusMonths(1);
         this.dataDaAvaliacao =  LocalDate.now();
         this.notaAvaliacao = 0;
     }
@@ -54,6 +55,7 @@ public class Avaliacoes {
 
         this.notaAvaliacao = notaAvaliacao;
 
+        //System.out.println("Avalicao realizada com sucesso");
         return true;
     }
 

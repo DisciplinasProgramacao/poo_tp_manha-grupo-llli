@@ -2,13 +2,12 @@ import java.io.*;
 import java.util.Scanner;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.HashMap;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /*
 * Classe Plataforma: Agregação com "Midia" e "Cliente"
@@ -18,7 +17,7 @@ public class Plataforma {
     //#region controle
     private Map<String, Cliente> clientes;
     private Map<String, Midia> midias;
-
+    public IFiltragem aplicadorDeFiltros = new FiltrosDeMidias();
 
     //#endregion
 
@@ -35,6 +34,12 @@ public class Plataforma {
     }
     
     
+    public void adicionarCliente (String nome, String login, String senha){
+
+        Cliente temp = new Cliente(nome, login, senha);
+        this.clientes.put(nome, temp);
+    }
+
     
     /*
     * Função para que ira ler uma arquivo e vai adionar Clientes ao Map de clientes
@@ -71,6 +76,10 @@ public class Plataforma {
  
         }
     }
+
+
+
+
 
 
 
@@ -215,6 +224,7 @@ public class Plataforma {
 
     }
 
+  
 
 
     /*
@@ -228,99 +238,35 @@ public class Plataforma {
     }
 
 
-    
-     
-    
-    /*
-    * Filtra as Midia existentes na plataforma pelo nome
-    * retorna um Set de Midias com os nome desejado
-    * @param nome a ser procurado no catalogo
-    */
-    public Set<Midia> filtrarNome (String nome){
-        
-        Set <Midia> setFiltradoPorNome = new HashSet<Midia>();;
-    
-        for (Map.Entry<String, Midia> entry : this.midias.entrySet()){
+    public Midia procurarMidiaPorNome( String nomeMidia){
 
-            Midia midia = entry.getValue();
+        Optional<Midia> midiaEncontrada = this.midias.values().stream()
+                            .filter(m -> m.getNome().equals(nomeMidia))
+                            .findFirst();
 
-            if (midia.getNome().equals(nome)){
+        if (midiaEncontrada.isPresent()) return midiaEncontrada.get();
 
-                setFiltradoPorNome.add(midia);
-            }
-
-        }
-
-        return setFiltradoPorNome;
+        else return null;
     }
-    
-    
 
-    /*
-    * Filtra as Midias existentes pelo genero
-    * retorna um Set de Midias com o genero desejado
-    * @param genero a ser procurado no catalogo
-    */
-    public Set<Midia>filtrarGenero(String filtrarPorGenero){
-        
-        Set<Midia> midiasGenerosIguais = new HashSet<>();
+    public void getNomeMidias() {
 
-        for (Map.Entry<String, Midia> entry : this.midias.entrySet()){
-
-            Midia midia = entry.getValue();
-
-            if (midia.compararGenero(filtrarPorGenero)){
-
-                midiasGenerosIguais.add(midia);
-            }
-
-        }
-
+        System.out.println("Lista geral de filmes e séries");
        
-        return midiasGenerosIguais;
-    }
-    
-    
-
-    /*
-    * Filtra as Midias Existentes no catalogo pelo idioma
-    * retorna um Set de Midias com o idioma desejado
-    * @param idioma a ser procurado no catalogo
-    */
-    public Set<Midia>filtrarIdioma(String filtrarPorIdioma){
-        
-        Set<Midia> midiasIdiomasIguais = new HashSet<>();
-
-        for (Map.Entry<String, Midia> entry : this.midias.entrySet()){
-
-            Midia midia = entry.getValue();
-
-            if (midia.compararGenero(filtrarPorIdioma)){
-
-                midiasIdiomasIguais.add(midia);
-            }
-
+        for (Midia midia : midias.values()) {
+            System.out.println("==========================");
+            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
         }
 
-       
-        return midiasIdiomasIguais;
     }
 
     
+    public Map<String, Cliente> getClientes() {
+        return this.clientes;
+    }
 
-
-    /*
-    * Junta Set de Midias
-    * Caso o cliente deseja fazer uma filtragem de mais de um tipo ele realiza as filtragens. 
-    * @param Lista de Serie A
-    * @param Lista de Serie B
-    * @return retorna um Set único com o set "a" adicionado no Set b.
-    */
-    public Set<Midia> juntarFiltros (HashSet <Midia> a, HashSet <Midia> b){
-        
-        b.addAll(a);
-
-        return b;
+    public Map<String, Midia> getMidias() {
+        return midias;
     }
     
 }

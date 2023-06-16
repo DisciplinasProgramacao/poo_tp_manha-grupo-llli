@@ -144,16 +144,21 @@ public class Midia{
     public void receberComentario (String comentario, String idCliente){
 
         this.comentarioRecebidos.put(comentario, idCliente);
+        System.out.println("Comentario Realizado com sucesso");
     }
 
     public void calcularMediaAvalicao(){
 
-        BigDecimal quantidadeAvaliacoes = new BigDecimal(avaliacoesRecebidas.size());
+        if (this.avaliacoesRecebidas.size() > 0){
 
-        BigDecimal somaAvaliacoes = new BigDecimal(this.avaliacoesRecebidas.stream()
-                                .mapToInt(Avaliacoes :: getNotaAvaliacao)
-                                .sum());
-        this.mediaAvaliacao = somaAvaliacoes.divide(quantidadeAvaliacoes).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal quantidadeAvaliacoes = new BigDecimal(avaliacoesRecebidas.size());
+            
+            BigDecimal somaAvaliacoes = new BigDecimal(this.avaliacoesRecebidas.stream()
+            .mapToInt(Avaliacoes :: getNotaAvaliacao)
+            .sum());
+
+            this.mediaAvaliacao = somaAvaliacoes.divide(quantidadeAvaliacoes, 2 , RoundingMode.HALF_UP);
+        }
 
     }
 
@@ -330,6 +335,11 @@ public class Midia{
     public int getAudiencia(){
 
         return this.audiencia;
+    }
+
+    public int getAvalicoesRecebidas(){
+
+        return this.avaliacoesRecebidas.size();
     }
 
     public String getNome(){
