@@ -15,9 +15,7 @@ public class Cliente{
     private String login;
     private String senha;
     private Icomentar tipoCliente;
-    
     public IFiltragem aplicadorDeFiltros = new FiltrosDeMidias();
-    
     private Stack<Avaliacoes> avaliacoesFeitas;
 
     private Map<Integer, Midia> mapMidiaAssistirFuturamente;
@@ -179,7 +177,9 @@ public class Cliente{
      * @param midia Midia que vai ser comentada
      */
     public void fazerComentario(String comentario, Midia midia){
-
+        
+        definirTipoCliente();
+        
         //Apenas clientes comentaristas e midias que ja assistiram
         if ((tipoCliente != null) && jaAssitiuMidia(midia)){
 
@@ -213,6 +213,16 @@ public class Cliente{
         return (this.nome+";"+this.login+";"+this.senha);
     }
 
+
+    public int totalMidiasJaAssistidas(){
+
+        return this.mapMidiaJaAssistidas.size();
+    }
+
+    public int totalMidiasAvaliadas(){
+
+        return this.avaliacoesFeitas.size();
+    }
 
     /*
     * Retorna login do cliente 

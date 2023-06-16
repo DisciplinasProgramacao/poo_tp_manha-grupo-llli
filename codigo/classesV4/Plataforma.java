@@ -2,13 +2,11 @@ import java.io.*;
 import java.util.Scanner;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.HashMap;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 
 /*
@@ -36,6 +34,12 @@ public class Plataforma {
     }
     
     
+    public void adicionarCliente (String nome, String login, String senha){
+
+        Cliente temp = new Cliente(nome, login, senha);
+        this.clientes.put(nome, temp);
+    }
+
     
     /*
     * Função para que ira ler uma arquivo e vai adionar Clientes ao Map de clientes
@@ -234,16 +238,35 @@ public class Plataforma {
     }
 
 
+    public Midia procurarMidiaPorNome( String nomeMidia){
+
+        Optional<Midia> midiaEncontrada = this.midias.values().stream()
+                            .filter(m -> m.getNome().equals(nomeMidia))
+                            .findFirst();
+
+        if (midiaEncontrada.isPresent()) return midiaEncontrada.get();
+
+        else return null;
+    }
+
     public void getNomeMidias() {
 
         System.out.println("Lista geral de filmes e séries");
-
+       
         for (Midia midia : midias.values()) {
             System.out.println("==========================");
             System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
         }
 
+    }
 
+    
+    public Map<String, Cliente> getClientes() {
+        return this.clientes;
+    }
+
+    public Map<String, Midia> getMidias() {
+        return midias;
     }
     
 }
