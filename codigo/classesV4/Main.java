@@ -100,6 +100,7 @@ public class Main {
         System.out.println("3 - Ver lista assistir futuramente");
         System.out.println("4 - Avaliar Midia");
         System.out.println("5 - Comentar Midia");
+        System.out.println("6 - Adicionar a lista de assistir futuramente");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
         int opcao = Integer.parseInt(teclado.nextLine());
@@ -140,7 +141,7 @@ public class Main {
 
     public static void main (String[] args){
     
-        
+     Scanner scanner = new Scanner(System.in);
 
         Plataforma plataforma = geraDados(); 
         
@@ -165,11 +166,9 @@ public class Main {
                                         case 1:
                                         plataforma.getNomeMidias();
                                         System.out.println("\n Pressione Enter para voltar ao menu do usuário");
-                                       
                                         teclado.nextLine();
                                         limparTela();
                                         opcaosubmenu = subMenuCliente();
-
                                         break;
 
                                         case 2:
@@ -189,7 +188,7 @@ public class Main {
                                         
                                         case 4:
 
-                                            Scanner scanner = new Scanner(System.in);
+                                    
 
                                             System.out.println("Escreva o nome da midia para avaliar");
                                             String nomeMida = scanner.nextLine();
@@ -216,17 +215,17 @@ public class Main {
                                         case 5:
                                             
                                             
-                                            Scanner scanner2 = new Scanner(System.in);
+                                    
 
                                             System.out.println("Escreva o nome da midia para comentar");
-                                            String nomeMidia = scanner2.nextLine();
+                                            String nomeMidia = scanner.nextLine();
 
                                             Midia midiaParaComentar = plataforma.procurarMidiaPorNome(nomeMidia);
 
                                             if (midiaParaComentar != null){
 
                                                 System.out.println("Digite o comentario");
-                                                String comentario = scanner2.nextLine();
+                                                String comentario = scanner.nextLine();
 
                                                 plataforma.procurarClientePorLogin(login).fazerComentario(comentario, midiaParaComentar);
                                                               
@@ -241,15 +240,23 @@ public class Main {
                                             break;       
                                         
                                         case 6: 
-                                            
-                                            teclado.nextLine();
-                                            limparTela();
-                                            opcaosubmenu = subMenuCliente();
-                                            break;       
+
+                                           System.out.println("Escreva o nome da mídia para assistir futuramente");
+                                           String nomeMidiaAssistirFuturamente = scanner.nextLine();
+                                           Midia midiaAssistirFuturamente = plataforma.procurarMidiaPorNome(nomeMidiaAssistirFuturamente);
+                                            if (midiaAssistirFuturamente == null) {
+                                                System.out.println("O filme não existe.");
+                                            } else {
+                                                plataforma.procurarClientePorLogin(login).adicionarMidia(midiaAssistirFuturamente, 'F');
+                                                System.out.println("O filme \"" + midiaAssistirFuturamente.getNome() + "\" foi adicionado à lista de assistir futuramente.");
+                                                teclado.nextLine();
+                                                limparTela();
+                                                opcaosubmenu = subMenuCliente();
+                                                break;
+                                            }
 
                                         case 7:
 
-                                            
                                             teclado.nextLine();
                                             limparTela();
                                             opcaosubmenu = subMenuCliente();
@@ -292,8 +299,6 @@ public class Main {
 
                     case 3:
 
-                        Scanner scanner = new Scanner(System.in);
-                       
                         String nome;
                         String loginTemp;
                         String senha;
