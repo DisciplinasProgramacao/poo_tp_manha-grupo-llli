@@ -259,7 +259,8 @@ public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, St
                       case 3:
                         System.out.println("\nDigite o genero que deseja buscar:");
                         String genero = teclado.nextLine();
-                        Set<Midia> midiasFiltradasGenero = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarGenero(genero, nomeMidiasAssitidasString);
+                        Generos gen = Generos.obterGeneroPorNome(genero);
+                        Set<Midia> midiasFiltradasGenero = plataforma.aplicadorDeFiltros.filtrarGenero(gen, nomeMidiasAssitidasString);
                         for (Midia midia : midiasFiltradasGenero) {
                             System.out.println("=======================================================");
                             System.out.println(midia.toString());
