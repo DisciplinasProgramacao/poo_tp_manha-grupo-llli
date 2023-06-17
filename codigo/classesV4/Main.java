@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 
 public class Main {
 
@@ -24,7 +26,47 @@ public class Main {
         plataforma.cadastrarFilme("arquivosDeLeitura/POO_Filmes.csv");
         plataforma.RegistraAudienciPorArquivo("arquivosDeLeitura/POO_Audiencia.csv"); 
         plataforma.RegistraAudienciPorArquivo("arquivosDeLeitura/POO_Audiencia2.csv"); 
-        
+
+  
+
+        Map<String, Midia> midiasIdomas = plataforma.getMidias();
+
+        if (midiasIdomas != null) {
+            // Percorre as mídias usando um loop foreach
+            for (Midia midia : midiasIdomas.values()) {
+                // gera um numero aleatorio para em seguida adicionar idioma a midia
+                Random random = new Random();
+                int numeroRandomico = random.nextInt(3) + 1; 
+                if (numeroRandomico == 1){
+                midia.adicionarIdioma("ingles");
+                }
+                else if(numeroRandomico == 2){
+                midia.adicionarIdioma("portugues");
+                }
+                else {
+                midia.adicionarIdioma("espanhol");
+                }
+            }
+        }
+
+        if (midiasIdomas != null) {
+            // Percorre as mídias usando um loop foreach
+            for (Midia midia : midiasIdomas.values()) {
+                // gera um numero aleatorio para em seguida adicionar idioma a midia
+                Random random = new Random();
+                int numeroRandomico = random.nextInt(3) + 1; 
+                if (numeroRandomico == 1){
+                midia.adicionarGenero("acao");
+                }
+                else if(numeroRandomico == 2){
+                midia.adicionarGenero("drama");
+                }
+                else {
+                midia.adicionarGenero("romance");
+                }
+            }
+        }
+
         try {
 
            //Cria um objeto Scanner para ler o arquivo
@@ -280,20 +322,50 @@ public class Main {
                         int opcaosubmenufiltros = subMenuFiltros();
                         while (opcaosubmenufiltros!=0){
                          switch (opcaosubmenufiltros) {
-                             case 1:
+                                case 1:
                                     System.out.println("\nDigite o nome que deseja buscar:");
                                     String nome = teclado.nextLine();
-                                    Set<Midia> midiasFiltradas = plataforma.aplicadorDeFiltros.filtrarNome(nome, plataforma.getMidias());
+                                    Set<Midia> midiasFiltradasNome = plataforma.aplicadorDeFiltros.filtrarNome(nome, plataforma.getMidias());
                                     limparTela();
-                                    System.out.println("Mídias filtradas por gênero: " + nome);
-                                    for (Midia midia : midiasFiltradas) {
-                                        System.out.println(midia.getNome());
-                                   
+                                    System.out.println("Mídias filtradas por Nome: " + nome);
+                                    for (Midia midia : midiasFiltradasNome) {
+
+                                    System.out.println("=======================================================");
+                                    System.out.println(midia.toString());
+                                    }
+                                    teclado.nextLine();
+                                    opcaosubmenufiltros = subMenuFiltros();
+                                    break;
+                                case 2:
+                                    System.out.println("\nDigite o idioma que deseja buscar:");
+                                    String idioma = teclado.nextLine();
+                                    idioma = idioma.toLowerCase();
+                                    Set<Midia> midiasFiltradasIdioma = plataforma.aplicadorDeFiltros.filtrarIdioma(idioma, plataforma.getMidias());
+                                    limparTela();
+                                    System.out.println("Mídias filtradas pelo idioma: " + idioma);
+                                    for (Midia midia : midiasFiltradasIdioma) {
+                                    System.out.println("=======================================================");
+                                       System.out.println(midia.toString());
+                                    }
+                                    teclado.nextLine();
+                                    opcaosubmenufiltros = subMenuFiltros();
+                                    break;
+                                 case 3:
+                                    System.out.println("\nDigite o Genero que deseja buscar:");
+                                    String genero = teclado.nextLine();
+                                    genero = genero.toLowerCase();
+                                    Set<Midia> midiasFiltradasGenero = plataforma.aplicadorDeFiltros.filtrarGenero(genero, plataforma.getMidias());
+                                    limparTela();
+                                    System.out.println("Mídias filtradas pelo idioma: " + genero);
+                                    for (Midia midia : midiasFiltradasGenero) {
+                                    System.out.println("=======================================================");
+                                     System.out.println(midia.toString());
                                     }
                                     teclado.nextLine();
                                     opcaosubmenufiltros = subMenuFiltros();
                                     break;
                             }
+
                         }         
                         break;
 
