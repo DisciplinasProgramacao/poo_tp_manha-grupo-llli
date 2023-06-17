@@ -161,7 +161,7 @@ public class Main {
         return opcao;
     }
 
-    public static int subMenuCliente() {
+public static int subMenuCliente() {
         System.out.println("");
         System.out.println("==========================");
         System.out.println("1 - Ver lista de series disponiveis");
@@ -172,7 +172,15 @@ public class Main {
         System.out.println("6 - Adicionar a lista de assistir futuramente");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao = Integer.parseInt(teclado.nextLine());
+        int opcao;
+        while (true) {
+        try {
+            opcao = Integer.parseInt(teclado.nextLine());
+            break; // Se a conversão for bem-sucedida, sai do loop
+        } catch (NumberFormatException e) {
+            System.out.println("Opção inválida. Digite novamente: ");
+        }
+        }
         return opcao;
     }
 
@@ -189,7 +197,15 @@ public class Main {
         System.out.println("6 - Estes mesmos 2 ultimos relatorios, porem com as midias separadas por genero");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao = Integer.parseInt(teclado.nextLine());
+        int opcao;
+        while (true) {
+        try {
+            opcao = Integer.parseInt(teclado.nextLine());
+            break; // Se a conversão for bem-sucedida, sai do loop
+        } catch (NumberFormatException e) {
+            System.out.println("Opção inválida. Digite novamente: ");
+        }
+        }
         return opcao;
     }
 
@@ -204,9 +220,18 @@ public class Main {
         System.out.println("3 - Filtrar pelo Genero");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao = Integer.parseInt(teclado.nextLine());
+        int opcao;
+        while (true) {
+        try {
+            opcao = Integer.parseInt(teclado.nextLine());
+            break; // Se a conversão for bem-sucedida, sai do loop
+        } catch (NumberFormatException e) {
+            System.out.println("Opção inválida. Digite novamente: ");
+        }
+        }
         return opcao;
     }
+
 
 public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, String login) {
    Scanner scanner = new Scanner(System.in);
@@ -280,20 +305,60 @@ public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, St
             break;
 
             case 3:
-                List<String> nomeMidiasFuturamente = plataforma.procurarClientePorLogin(login).getMidiasFuturamente();
-                if (nomeMidiasFuturamente != null && !nomeMidiasFuturamente.isEmpty()) {
-                    for (String nomeMidia : nomeMidiasFuturamente) {
-                    System.out.println("=================================================");
-                    System.out.println(nomeMidia);
+              Map<Integer, Midia> nomeMidiasFuturamente = plataforma.procurarClientePorLogin(login).getMidiasFuturamente();
+            Map<String, Midia> nomeMidiasFuturamenteString = new HashMap<>();
+            for (Map.Entry<Integer, Midia> entry : nomeMidiasFuturamente.entrySet()) {
+                Integer chave = entry.getKey();
+                Midia midia = entry.getValue();
+                String chaveString = chave.toString();
+                nomeMidiasFuturamenteString.put(chaveString, midia);
+                System.out.println("=================================================");
+                System.out.println("Midia: " + midia.toString());
+            }
+            int opcaosubmenufiltrosFuturamente = subMenuFiltros(); 
+            while(opcaosubmenufiltrosFuturamente!=0){
+                switch(opcaosubmenufiltrosFuturamente){
+                    case 1:
+                        System.out.println("\nDigite o nome que deseja buscar:");
+                        String nome = teclado.nextLine();
+                        Set<Midia> midiasFiltradasNome = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarNome(nome, nomeMidiasFuturamenteString);
+                        for (Midia midia : midiasFiltradasNome) {
+                            System.out.println("=======================================================");
+                            System.out.println(midia.toString());
+                        }
+                        teclado.nextLine();
+                        opcaosubmenufiltrosAssis = subMenuFiltros();
+                    break;
+                    case 2:
+                        System.out.println("\nDigite o idioma que deseja buscar:");
+                        String idioma = teclado.nextLine();
+                        Set<Midia> midiasFiltradasidioma = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarIdioma(idioma, nomeMidiasFuturamenteString);
+                        for (Midia midia : midiasFiltradasidioma) {
+                            System.out.println("=======================================================");
+                            System.out.println(midia.toString());
+                        }
+                        teclado.nextLine();
+                        opcaosubmenufiltrosAssis = subMenuFiltros();
+                    break;
+                    case 3:
+                        System.out.println("\nDigite o genero que deseja buscar:");
+                        String genero = teclado.nextLine();
+                        Generos gen = Generos.obterGeneroPorNome(genero);
+                        Set<Midia> midiasFiltradasGenero = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarGenero(gen, nomeMidiasFuturamenteString);
+                        for (Midia midia : midiasFiltradasGenero) {
+                            System.out.println("=======================================================");
+                            System.out.println(midia.toString());
+                        }
+                        teclado.nextLine();
+                        opcaosubmenufiltrosAssis = subMenuFiltros();
+                    break;
                 }
-                } else {
-                System.out.println("Lista Assistir Futuramente Vazia");
-                } 
-                int opcaosubmenufiltrosFut = subMenuFiltros();                  
-                teclado.nextLine();
-                limparTela();
-                opcaosubmenu = subMenuCliente();
-                break;
+            }
+            teclado.nextLine();
+            limparTela();
+            opcaosubmenu = subMenuCliente();
+            break;
+
 
             case 4:
 

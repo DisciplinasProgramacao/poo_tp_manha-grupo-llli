@@ -248,12 +248,9 @@ public class Cliente{
     }
 
 
-     public List<String> getMidiasFuturamente() {
-    List<String> listaMidiasAssistirFuturamente = new ArrayList<>();
-    for (Midia midia : mapMidiaAssistirFuturamente.values()) {
-        listaMidiasAssistirFuturamente.add(midia.toString());
-    }
-    return listaMidiasAssistirFuturamente;
+   
+     public Map<Integer, Midia> getMidiasFuturamente() {
+        return mapMidiaAssistirFuturamente;
 }
 
 
