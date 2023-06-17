@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -129,7 +130,15 @@ public class Main {
         }
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
-        int opcao = Integer.parseInt(teclado.nextLine());
+        int opcao;
+        while (true) {
+        try {
+            opcao = Integer.parseInt(teclado.nextLine());
+            break; // Se a conversão for bem-sucedida, sai do loop
+        } catch (NumberFormatException e) {
+            System.out.println("Opção inválida. Digite novamente: ");
+        }
+    }
         leitor.close();
         return opcao;
     }
@@ -194,12 +203,58 @@ public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, St
             break;
 
             case 2:
-            List<String> nomeMidiasAssitidas = plataforma.procurarClientePorLogin(login).getMidiasJaAssistidas();
-            for (String nomeMidia : nomeMidiasAssitidas) {
+            Map<Integer, Midia> nomeMidiasAssitidas = plataforma.procurarClientePorLogin(login).getMidiasJaAssistidas();
+            Map<String, Midia> nomeMidiasAssitidasString = new HashMap<>();
+            for (Map.Entry<Integer, Midia> entry : nomeMidiasAssitidas.entrySet()) {
+                Integer chave = entry.getKey();
+                Midia midia = entry.getValue();
+                String chaveString = chave.toString();
+                nomeMidiasAssitidasString.put(chaveString, midia);
                 System.out.println("=================================================");
-                 System.out.println(nomeMidia);
+                System.out.println("Midia: " + midia.toString());
             }
-            int opcaosubmenufiltrosAssis = subMenuFiltros();  
+            int opcaosubmenufiltrosAssis = subMenuFiltros(); 
+              while(opcaosubmenufiltrosAssis!=0){
+                switch(opcaosubmenufiltrosAssis){
+                    case 1:
+                        System.out.println("\nDigite o nome que deseja buscar:");
+                        String nome = teclado.nextLine();
+                        Set<Midia> midiasFiltradasNome = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarNome(nome, nomeMidiasAssitidasString);
+                        for (Midia midia : midiasFiltradasNome) {
+                            System.out.println("=======================================================");
+                            System.out.println(midia.toString());
+                        }
+                        teclado.nextLine();
+                        opcaosubmenufiltrosAssis = subMenuFiltros();
+                    break;
+                      case 2:
+                        System.out.println("\nDigite o idioma que deseja buscar:");
+                        String idioma = teclado.nextLine();
+                        Set<Midia> midiasFiltradasidioma = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarIdioma(idioma, nomeMidiasAssitidasString);
+                        for (Midia midia : midiasFiltradasidioma) {
+                            System.out.println("=======================================================");
+                            System.out.println(midia.toString());
+                        }
+                        teclado.nextLine();
+                        opcaosubmenufiltrosAssis = subMenuFiltros();
+                    break;
+                      case 3:
+                        System.out.println("\nDigite o genero que deseja buscar:");
+                        String genero = teclado.nextLine();
+                        Set<Midia> midiasFiltradasGenero = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarGenero(genero, nomeMidiasAssitidasString);
+                        for (Midia midia : midiasFiltradasGenero) {
+                            System.out.println("=======================================================");
+                            System.out.println(midia.toString());
+                        }
+                        teclado.nextLine();
+                        opcaosubmenufiltrosAssis = subMenuFiltros();
+                    break;
+
+                }
+
+            }
+          
+
             teclado.nextLine();
             limparTela();
             opcaosubmenu = subMenuCliente();
@@ -305,7 +360,6 @@ public static void casesMenuCatalogo(int opcaosubmenufiltros , Plataforma plataf
                 limparTela();
                 System.out.println("Mídias filtradas por Nome: " + nome);
                 for (Midia midia : midiasFiltradasNome) {
-
                 System.out.println("=======================================================");
                 System.out.println(midia.toString());
                 }

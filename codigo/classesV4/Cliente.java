@@ -243,13 +243,9 @@ public class Cliente{
         return this.senha;
     }
 
-   public List<String> getMidiasJaAssistidas() {
-    List<String> listaMidiasAssistidas = new ArrayList<>();
-    for (Midia midia : mapMidiaJaAssistidas.values()) {
-        listaMidiasAssistidas.add(midia.toString());
+   public Map<Integer, Midia> getMidiasJaAssistidas() {
+        return mapMidiaJaAssistidas;
     }
-    return listaMidiasAssistidas;
-}
 
 
      public List<String> getMidiasFuturamente() {
