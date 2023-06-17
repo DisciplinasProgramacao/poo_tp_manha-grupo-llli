@@ -55,15 +55,33 @@ public class Main {
             for (Midia midia : midias.values()) {
                 // gera um numero aleatorio para em seguida adicionar idioma a midia
                 Random random = new Random();
-                int numeroRandomico = random.nextInt(3) + 1; 
+                int numeroRandomico = random.nextInt(9) + 1; 
                 if (numeroRandomico == 1){
-                midia.adicionarGenero("acao");
+                midia.adicionarGenero(Generos.ACAO);
                 }
                 else if(numeroRandomico == 2){
-                midia.adicionarGenero("drama");
+                midia.adicionarGenero(Generos.DRAMA);
+                }
+                else if(numeroRandomico == 3){
+                midia.adicionarGenero(Generos.ANIME);
+                }
+                else if(numeroRandomico == 4){
+                midia.adicionarGenero(Generos.AVENTURA);
+                }
+                else if(numeroRandomico == 5){
+                midia.adicionarGenero(Generos.COMEDIA);
+                }
+                else if(numeroRandomico == 6){
+                midia.adicionarGenero(Generos.DOCUMENTARIO);
+                }
+                else if(numeroRandomico == 7){
+                midia.adicionarGenero(Generos.POLICIAL);
+                }
+                else if(numeroRandomico == 8){
+                midia.adicionarGenero(Generos.SUSPENSE);
                 }
                 else {
-                midia.adicionarGenero("romance");
+                midia.adicionarGenero(Generos.ROMANCE);
                 }
             }
         }
@@ -384,7 +402,8 @@ public static void casesMenuCatalogo(int opcaosubmenufiltros , Plataforma plataf
                 System.out.println("\nDigite o Genero que deseja buscar:");
                 String genero = teclado.nextLine();
                 genero = genero.toLowerCase();
-                Set<Midia> midiasFiltradasGenero = plataforma.aplicadorDeFiltros.filtrarGenero(genero, plataforma.getMidias());
+                Generos gen = Generos.obterGeneroPorNome(genero);
+                Set<Midia> midiasFiltradasGenero = plataforma.aplicadorDeFiltros.filtrarGenero(gen, plataforma.getMidias());
                 limparTela();
                 System.out.println("Mídias filtradas pelo idioma: " + genero);
                 for (Midia midia : midiasFiltradasGenero) {

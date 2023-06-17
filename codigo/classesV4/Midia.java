@@ -32,7 +32,7 @@ public class Midia{
     protected Set<String> clientesAvaliadores; //Set de Clientes que avaliaram a midia
     protected List<Avaliacoes> avaliacoesRecebidas;
 
-    protected Set<String> genero;
+    protected Set<Generos> genero;
     protected Set<String> idioma;
 
     protected SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -168,7 +168,7 @@ public class Midia{
     * Adiciona um novo serie ao Set de genero 
     * @param tipoGenero que sera adicionada
     */
-    public void adicionarGenero (String tipoGenero){
+    public void adicionarGenero (Generos tipoGenero){
 
         if (genero == null){
 
@@ -200,7 +200,7 @@ public class Midia{
     * Remove um genero do Set de genero
     * @param nomeGenero a ser removido
     */
-    public void removerGenero (String nomeGenero){
+    public void removerGenero (Generos nomeGenero){
         
         if (this.genero != null){
             this.genero.remove(nomeGenero);
@@ -242,14 +242,14 @@ public class Midia{
     * @return True, se o método existe no Set genero
     * @return False, se o método nao existe no Set genero
     */
-    public boolean compararGenero (String generoParaComparar){
+    public boolean compararGenero (Generos generoParaComparar){
         
         if (this.genero!=null){
 
-            Iterator<String> iterator = this.genero.iterator();
+            Iterator<Generos> iterator = this.genero.iterator();
 
             while (iterator.hasNext()) {
-                String elemento = iterator.next();
+                Generos elemento = iterator.next();
             
                 if (generoParaComparar.equals(elemento)){
                     return true;
@@ -294,10 +294,10 @@ public class Midia{
         
         if (this.genero!=null){
 
-            Iterator<String> iterator = genero.iterator();
+            Iterator<Generos> iterator = genero.iterator();
 
             while (iterator.hasNext()) {
-                String elemento = iterator.next();
+                Generos elemento = iterator.next();
                 System.out.println(elemento);
             }
         }
@@ -352,7 +352,7 @@ public class Midia{
         return this.idMidia;
     }
 
-    public Set<String> getGeneros(){
+    public Set<Generos> getGeneros(){
 
         return this.genero;
     }
