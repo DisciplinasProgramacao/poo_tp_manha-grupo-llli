@@ -29,11 +29,11 @@ public class Main {
 
   
 
-        Map<String, Midia> midiasIdomas = plataforma.getMidias();
+        Map<String, Midia> midias = plataforma.getMidias();
 
-        if (midiasIdomas != null) {
+        if (midias != null) {
             // Percorre as mídias usando um loop foreach
-            for (Midia midia : midiasIdomas.values()) {
+            for (Midia midia : midias.values()) {
                 // gera um numero aleatorio para em seguida adicionar idioma a midia
                 Random random = new Random();
                 int numeroRandomico = random.nextInt(3) + 1; 
@@ -49,9 +49,9 @@ public class Main {
             }
         }
 
-        if (midiasIdomas != null) {
+        if (midias != null) {
             // Percorre as mídias usando um loop foreach
-            for (Midia midia : midiasIdomas.values()) {
+            for (Midia midia : midias.values()) {
                 // gera um numero aleatorio para em seguida adicionar idioma a midia
                 Random random = new Random();
                 int numeroRandomico = random.nextInt(3) + 1; 
@@ -194,18 +194,32 @@ public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, St
             break;
 
             case 2:
-            plataforma.procurarClientePorLogin(login).getNomeMidiasJaAssistidas();
+            List<String> nomeMidiasAssitidas = plataforma.procurarClientePorLogin(login).getMidiasJaAssistidas();
+            for (String nomeMidia : nomeMidiasAssitidas) {
+                System.out.println("=================================================");
+                 System.out.println(nomeMidia);
+            }
+            int opcaosubmenufiltrosAssis = subMenuFiltros();  
             teclado.nextLine();
             limparTela();
             opcaosubmenu = subMenuCliente();
             break;
 
             case 3:
-            plataforma.procurarClientePorLogin(login).getNomeMidiasAssistirFuturamente();
-            teclado.nextLine();
-            limparTela();
-            opcaosubmenu = subMenuCliente();
-            break;
+                List<String> nomeMidiasFuturamente = plataforma.procurarClientePorLogin(login).getMidiasFuturamente();
+                if (nomeMidiasFuturamente != null && !nomeMidiasFuturamente.isEmpty()) {
+                    for (String nomeMidia : nomeMidiasFuturamente) {
+                    System.out.println("=================================================");
+                    System.out.println(nomeMidia);
+                }
+                } else {
+                System.out.println("Lista Assistir Futuramente Vazia");
+                } 
+                int opcaosubmenufiltrosFut = subMenuFiltros();                  
+                teclado.nextLine();
+                limparTela();
+                opcaosubmenu = subMenuCliente();
+                break;
 
             case 4:
 

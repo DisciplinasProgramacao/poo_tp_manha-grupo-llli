@@ -1,8 +1,10 @@
 import java.util.Map;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.Iterator;
+import java.util.List;
 
 /*
 * Classe Cliente: Agregação com "Plataforma", Composição com interface IComentar
@@ -241,22 +243,23 @@ public class Cliente{
         return this.senha;
     }
 
-    public void getNomeMidiasJaAssistidas() {
-        System.out.println("Lista geral de filmes e séries já assistidos");
-        for (Midia midia : mapMidiaJaAssistidas.values()) {
-            System.out.println("==========================");
-            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
-        }
+   public List<String> getMidiasJaAssistidas() {
+    List<String> listaMidiasAssistidas = new ArrayList<>();
+    for (Midia midia : mapMidiaJaAssistidas.values()) {
+        listaMidiasAssistidas.add(midia.toString());
     }
+    return listaMidiasAssistidas;
+}
 
 
-    public void getNomeMidiasAssistirFuturamente() {
-        System.out.println("Lista geral de filmes e séries que desejo assistir futuramente");
-        for (Midia midia : mapMidiaAssistirFuturamente.values()) {
-            System.out.println("==========================");
-            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
-        }
+     public List<String> getMidiasFuturamente() {
+    List<String> listaMidiasAssistirFuturamente = new ArrayList<>();
+    for (Midia midia : mapMidiaAssistirFuturamente.values()) {
+        listaMidiasAssistirFuturamente.add(midia.toString());
     }
+    return listaMidiasAssistirFuturamente;
+}
+
 
 
 
