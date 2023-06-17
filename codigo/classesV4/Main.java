@@ -181,6 +181,273 @@ public class Main {
         return opcao;
     }
 
+public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, String login) {
+   Scanner scanner = new Scanner(System.in);
+    while (opcaosubmenu!=0){
+        switch (opcaosubmenu) {
+            case 1:
+            plataforma.getNomeMidias();
+            System.out.println("\n Pressione Enter para voltar ao menu do usuário");
+            teclado.nextLine();
+            limparTela();
+            opcaosubmenu = subMenuCliente();
+            break;
+
+            case 2:
+            plataforma.procurarClientePorLogin(login).getNomeMidiasJaAssistidas();
+            teclado.nextLine();
+            limparTela();
+            opcaosubmenu = subMenuCliente();
+            break;
+
+            case 3:
+            plataforma.procurarClientePorLogin(login).getNomeMidiasAssistirFuturamente();
+            teclado.nextLine();
+            limparTela();
+            opcaosubmenu = subMenuCliente();
+            break;
+
+            case 4:
+
+                System.out.println("Escreva o nome da midia para avaliar");
+                String nomeMida = scanner.nextLine();
+
+                Midia midiaParaAvaliar = plataforma.procurarMidiaPorNome(nomeMida);
+
+                if (midiaParaAvaliar != null){
+
+                    System.out.println("Digite a nota para midia de 1 a 5");
+                    int nota = scanner.nextInt();
+
+                    plataforma.procurarClientePorLogin(login).avaliarMidia(midiaParaAvaliar, nota);
+                                    
+                }
+                else System.out.println("Midia nao encontrada");
+                
+                System.out.println("\n Pressione Enter para voltar ao menu do usuário");
+            
+                teclado.nextLine();
+                limparTela();
+                opcaosubmenu = subMenuCliente();
+                break;       
+            
+            case 5:
+                
+                System.out.println("Escreva o nome da midia para comentar");
+                String nomeMidia = scanner.nextLine();
+
+                Midia midiaParaComentar = plataforma.procurarMidiaPorNome(nomeMidia);
+
+                if (midiaParaComentar != null){
+
+                    System.out.println("Digite o comentario");
+                    String comentario = scanner.nextLine();
+
+                    plataforma.procurarClientePorLogin(login).fazerComentario(comentario, midiaParaComentar);
+                                    
+                }
+                else System.out.println("Midia nao encontrada");
+                
+                System.out.println("\n Pressione Enter para voltar ao menu do usuário");
+            
+                teclado.nextLine();
+                limparTela();
+                opcaosubmenu = subMenuCliente();
+                break;       
+            
+            case 6: 
+
+                System.out.println("Escreva o nome da mídia para assistir futuramente");
+                String nomeMidiaAssistirFuturamente = scanner.nextLine();
+                Midia midiaAssistirFuturamente = plataforma.procurarMidiaPorNome(nomeMidiaAssistirFuturamente);
+                if (midiaAssistirFuturamente == null) {
+                    System.out.println("O filme não existe.");
+                } else {
+                    plataforma.procurarClientePorLogin(login).adicionarMidia(midiaAssistirFuturamente, 'F');
+                    System.out.println("O filme \"" + midiaAssistirFuturamente.getNome() + "\" foi adicionado à lista de assistir futuramente.");
+                    teclado.nextLine();
+                    limparTela();
+                    opcaosubmenu = subMenuCliente();
+                    break;
+                }
+
+            case 7:
+                teclado.nextLine();
+                limparTela();
+                opcaosubmenu = subMenuCliente();
+                break;       
+        }   
+    }  
+}
+
+
+public static void casesMenuCatalogo(int opcaosubmenufiltros , Plataforma plataforma) {
+    while (opcaosubmenufiltros!=0){
+        switch (opcaosubmenufiltros) {
+            case 1:
+                System.out.println("\nDigite o nome que deseja buscar:");
+                String nome = teclado.nextLine();
+                Set<Midia> midiasFiltradasNome = plataforma.aplicadorDeFiltros.filtrarNome(nome, plataforma.getMidias());
+                limparTela();
+                System.out.println("Mídias filtradas por Nome: " + nome);
+                for (Midia midia : midiasFiltradasNome) {
+
+                System.out.println("=======================================================");
+                System.out.println(midia.toString());
+                }
+                teclado.nextLine();
+                opcaosubmenufiltros = subMenuFiltros();
+                break;
+            case 2:
+                System.out.println("\nDigite o idioma que deseja buscar:");
+                String idioma = teclado.nextLine();
+                idioma = idioma.toLowerCase();
+                Set<Midia> midiasFiltradasIdioma = plataforma.aplicadorDeFiltros.filtrarIdioma(idioma, plataforma.getMidias());
+                limparTela();
+                System.out.println("Mídias filtradas pelo idioma: " + idioma);
+                for (Midia midia : midiasFiltradasIdioma) {
+                System.out.println("=======================================================");
+                    System.out.println(midia.toString());
+                }
+                teclado.nextLine();
+                opcaosubmenufiltros = subMenuFiltros();
+                break;
+                case 3:
+                System.out.println("\nDigite o Genero que deseja buscar:");
+                String genero = teclado.nextLine();
+                genero = genero.toLowerCase();
+                Set<Midia> midiasFiltradasGenero = plataforma.aplicadorDeFiltros.filtrarGenero(genero, plataforma.getMidias());
+                limparTela();
+                System.out.println("Mídias filtradas pelo idioma: " + genero);
+                for (Midia midia : midiasFiltradasGenero) {
+                System.out.println("=======================================================");
+                System.out.println(midia.toString());
+                }
+                teclado.nextLine();
+                opcaosubmenufiltros = subMenuFiltros();
+                break;
+        }
+
+    } 
+    
+}
+
+
+public static void casesMenuRelatorios(int opcaosubmenurelatorios , Plataforma plataforma) {
+    while (opcaosubmenurelatorios!=0){
+        switch (opcaosubmenurelatorios) {
+            case 1:
+            
+                limparTela();
+
+                Optional<Cliente> clienteComMaiorTotalMidiasAssistidas = plataforma.getClientes().values().stream()
+                                            .max(Comparator.comparingInt(Cliente::totalMidiasJaAssistidas));
+
+                if (clienteComMaiorTotalMidiasAssistidas.isPresent()){
+
+                    Cliente cliente = clienteComMaiorTotalMidiasAssistidas.get();
+                    int maiorTotalMidiasAssistidas = cliente.totalMidiasJaAssistidas();
+                    System.out.println("Cliente com maior total de mídias assistidas: " + cliente.getNome());
+                    System.out.println("Total de mídias assistidas: " + maiorTotalMidiasAssistidas);
+                } 
+                else {
+                    System.out.println("Não há clientes com Mídias já assistidas");
+                }
+
+                
+
+                teclado.nextLine();
+                opcaosubmenurelatorios = subMenuRelatorios();
+                break;
+
+            case 2:
+
+                limparTela();
+                
+                Optional<Cliente> clienteComMaiorTotalMidiasAvaliadas = plataforma.getClientes().values().stream()
+                                        .max(Comparator.comparingInt(Cliente::totalMidiasAvaliadas));
+                
+                if (clienteComMaiorTotalMidiasAvaliadas.isPresent()){
+
+                    Cliente cliente = clienteComMaiorTotalMidiasAvaliadas.get();
+                    int totalMidiasAvaliadas = cliente.totalMidiasAvaliadas();
+                    System.out.println("Cliente com maior total de mídias assistidas: " + cliente.getNome());
+                    System.out.println("Total de mídias Avalidas: " + totalMidiasAvaliadas);
+                } 
+                else {
+                    System.out.println("Não há clientes com Mídias já assistidas");
+                }
+
+                
+                teclado.nextLine();
+                opcaosubmenurelatorios = subMenuRelatorios();
+                break;  
+            
+                
+                case 3:
+                
+                int temp = (int) plataforma.getClientes().values().stream()
+                                                    .filter(c -> plataforma.procurarClientePorLogin(c.getLogin()).totalMidiasAvaliadas() >= 15)
+                                                    .count();
+                                                    int totalClientes = plataforma.getClientes().size();
+                
+                System.out.println("Porcentagem de clientes que avaliaram mais de 15 Midias: "+((double) temp * 100 / totalClientes)+"%");                                    
+                
+                teclado.nextLine();
+                opcaosubmenurelatorios = subMenuRelatorios();
+                break;  
+                
+                //Quais sao as 10 midias com a melhor media de avaliacoes e que tenham sido vistas pelo menos 100 vezes, apresentadas em ordem decrescente");
+                case 4:
+
+                    // plataforma.getMidias().values().stream()
+                    //                                .filter(m -> m.getAvalicoesRecebidas() > 0)
+                    //                                .forEach(Midia::calcularMediaAvalicao);
+
+                    // List<Midia> midiasMaiorAvaliacao = new ArrayList<>();
+
+                    // midiasMaiorAvaliacao = plataforma.getMidias().values().stream()
+                    //                                .filter(m -> m.getAudiencia() >= 100)
+                    //                                .sorted(Comparator.comparing(m -> m.getMediaAvaliacao()))
+                    //                                .limit(10)
+                    //                                .collect(Collectors.toList());
+
+
+                    plataforma.getMidias().values().stream()
+                                                    .filter(m -> m.getAudiencia() >= 100)
+                                                    .limit(5)
+                                                    .forEach(midia -> System.out.println(midia.getNome() + " - Audiência: " + midia.getAudiencia()+ " - Media Avaliacao: " +midia.getMediaAvaliacao() + " - Quantidade De avaliacoes Recebidas: " +midia.getAvalicoesRecebidas()));
+
+
+                    // for (Midia midia : midiasMaiorAvaliacao) {
+                    //     System.out.println(midia.getNome() + " - Média de Avaliações: " + midia.getMediaAvaliacao());
+                    // }
+
+                    teclado.nextLine();
+                    opcaosubmenurelatorios = subMenuRelatorios();
+                    break;  
+
+                //Quais sao as 10 midias com mais visualizacoes em ordem descrescente");
+                case 5:
+
+
+
+                    teclado.nextLine();
+                    opcaosubmenurelatorios = subMenuRelatorios();
+                    break;  
+                
+                //Estes mesmos 2 ultimos relatorios, porem com as midias separadas por genero");
+                case 6:
+
+                    teclado.nextLine();
+                    opcaosubmenurelatorios = subMenuRelatorios();
+                    break;  
+            }   
+        
+    }
+
+}
+
     public static void main (String[] args){
     
      Scanner scanner = new Scanner(System.in);
@@ -203,108 +470,7 @@ public class Main {
                                 limparTela();
                                 System.out.println("Seja Bem Vindo "+ plataforma.procurarClientePorLogin(login).getNome()+" ! O que deseja fazer ?");
                                 int opcaosubmenu = subMenuCliente();
-                                while (opcaosubmenu!=0){
-                                    switch (opcaosubmenu) {
-                                        case 1:
-                                        plataforma.getNomeMidias();
-                                        System.out.println("\n Pressione Enter para voltar ao menu do usuário");
-                                        teclado.nextLine();
-                                        limparTela();
-                                        opcaosubmenu = subMenuCliente();
-                                        break;
-
-                                        case 2:
-                                        plataforma.procurarClientePorLogin(login).getNomeMidiasJaAssistidas();
-                                        teclado.nextLine();
-                                        limparTela();
-                                        opcaosubmenu = subMenuCliente();
-                                        break;
-
-                                        case 3:
-                                        plataforma.procurarClientePorLogin(login).getNomeMidiasAssistirFuturamente();
-                                        teclado.nextLine();
-                                        limparTela();
-                                        opcaosubmenu = subMenuCliente();
-                                        break;
-
-                                        
-                                        case 4:
-
-                                    
-
-                                            System.out.println("Escreva o nome da midia para avaliar");
-                                            String nomeMida = scanner.nextLine();
-
-                                            Midia midiaParaAvaliar = plataforma.procurarMidiaPorNome(nomeMida);
-
-                                            if (midiaParaAvaliar != null){
-
-                                                System.out.println("Digite a nota para midia de 1 a 5");
-                                                int nota = scanner.nextInt();
-
-                                                plataforma.procurarClientePorLogin(login).avaliarMidia(midiaParaAvaliar, nota);
-                                                              
-                                            }
-                                            else System.out.println("Midia nao encontrada");
-                                            
-                                            System.out.println("\n Pressione Enter para voltar ao menu do usuário");
-                                       
-                                            teclado.nextLine();
-                                            limparTela();
-                                            opcaosubmenu = subMenuCliente();
-                                            break;       
-                                        
-                                        case 5:
-                                            
-                                            
-                                    
-
-                                            System.out.println("Escreva o nome da midia para comentar");
-                                            String nomeMidia = scanner.nextLine();
-
-                                            Midia midiaParaComentar = plataforma.procurarMidiaPorNome(nomeMidia);
-
-                                            if (midiaParaComentar != null){
-
-                                                System.out.println("Digite o comentario");
-                                                String comentario = scanner.nextLine();
-
-                                                plataforma.procurarClientePorLogin(login).fazerComentario(comentario, midiaParaComentar);
-                                                              
-                                            }
-                                            else System.out.println("Midia nao encontrada");
-                                            
-                                            System.out.println("\n Pressione Enter para voltar ao menu do usuário");
-                                       
-                                            teclado.nextLine();
-                                            limparTela();
-                                            opcaosubmenu = subMenuCliente();
-                                            break;       
-                                        
-                                        case 6: 
-
-                                           System.out.println("Escreva o nome da mídia para assistir futuramente");
-                                           String nomeMidiaAssistirFuturamente = scanner.nextLine();
-                                           Midia midiaAssistirFuturamente = plataforma.procurarMidiaPorNome(nomeMidiaAssistirFuturamente);
-                                            if (midiaAssistirFuturamente == null) {
-                                                System.out.println("O filme não existe.");
-                                            } else {
-                                                plataforma.procurarClientePorLogin(login).adicionarMidia(midiaAssistirFuturamente, 'F');
-                                                System.out.println("O filme \"" + midiaAssistirFuturamente.getNome() + "\" foi adicionado à lista de assistir futuramente.");
-                                                teclado.nextLine();
-                                                limparTela();
-                                                opcaosubmenu = subMenuCliente();
-                                                break;
-                                            }
-
-                                        case 7:
-
-                                            teclado.nextLine();
-                                            limparTela();
-                                            opcaosubmenu = subMenuCliente();
-                                            break;       
-                                    }   
-                                }    
+                                casesMenuUsuario(opcaosubmenu, plataforma, login);
                             }
                             else{
                                 System.out.println("Senha incorreta");
@@ -320,53 +486,7 @@ public class Main {
                         limparTela();
                         plataforma.getNomeMidias();
                         int opcaosubmenufiltros = subMenuFiltros();
-                        while (opcaosubmenufiltros!=0){
-                         switch (opcaosubmenufiltros) {
-                                case 1:
-                                    System.out.println("\nDigite o nome que deseja buscar:");
-                                    String nome = teclado.nextLine();
-                                    Set<Midia> midiasFiltradasNome = plataforma.aplicadorDeFiltros.filtrarNome(nome, plataforma.getMidias());
-                                    limparTela();
-                                    System.out.println("Mídias filtradas por Nome: " + nome);
-                                    for (Midia midia : midiasFiltradasNome) {
-
-                                    System.out.println("=======================================================");
-                                    System.out.println(midia.toString());
-                                    }
-                                    teclado.nextLine();
-                                    opcaosubmenufiltros = subMenuFiltros();
-                                    break;
-                                case 2:
-                                    System.out.println("\nDigite o idioma que deseja buscar:");
-                                    String idioma = teclado.nextLine();
-                                    idioma = idioma.toLowerCase();
-                                    Set<Midia> midiasFiltradasIdioma = plataforma.aplicadorDeFiltros.filtrarIdioma(idioma, plataforma.getMidias());
-                                    limparTela();
-                                    System.out.println("Mídias filtradas pelo idioma: " + idioma);
-                                    for (Midia midia : midiasFiltradasIdioma) {
-                                    System.out.println("=======================================================");
-                                       System.out.println(midia.toString());
-                                    }
-                                    teclado.nextLine();
-                                    opcaosubmenufiltros = subMenuFiltros();
-                                    break;
-                                 case 3:
-                                    System.out.println("\nDigite o Genero que deseja buscar:");
-                                    String genero = teclado.nextLine();
-                                    genero = genero.toLowerCase();
-                                    Set<Midia> midiasFiltradasGenero = plataforma.aplicadorDeFiltros.filtrarGenero(genero, plataforma.getMidias());
-                                    limparTela();
-                                    System.out.println("Mídias filtradas pelo idioma: " + genero);
-                                    for (Midia midia : midiasFiltradasGenero) {
-                                    System.out.println("=======================================================");
-                                     System.out.println(midia.toString());
-                                    }
-                                    teclado.nextLine();
-                                    opcaosubmenufiltros = subMenuFiltros();
-                                    break;
-                            }
-
-                        }         
+                        casesMenuCatalogo(opcaosubmenufiltros, plataforma);      
                         break;
 
                     case 3:
@@ -393,117 +513,9 @@ public class Main {
                     case 4:
                         System.out.println("\n Qual relatório deseja visualizar ?");
                         int opcaosubmenurelatorios = subMenuRelatorios();
-                        while (opcaosubmenurelatorios!=0){
-                            switch (opcaosubmenurelatorios) {
-                                case 1:
-                                
-                                    limparTela();
-
-                                    Optional<Cliente> clienteComMaiorTotalMidiasAssistidas = plataforma.getClientes().values().stream()
-                                                                .max(Comparator.comparingInt(Cliente::totalMidiasJaAssistidas));
-
-                                    if (clienteComMaiorTotalMidiasAssistidas.isPresent()){
-
-                                        Cliente cliente = clienteComMaiorTotalMidiasAssistidas.get();
-                                        int maiorTotalMidiasAssistidas = cliente.totalMidiasJaAssistidas();
-                                        System.out.println("Cliente com maior total de mídias assistidas: " + cliente.getNome());
-                                        System.out.println("Total de mídias assistidas: " + maiorTotalMidiasAssistidas);
-                                    } 
-                                    else {
-                                        System.out.println("Não há clientes com Mídias já assistidas");
-                                    }
-
-                                    
-
-                                    teclado.nextLine();
-                                    opcaosubmenurelatorios = subMenuRelatorios();
-                                    break;
-
-                                case 2:
-
-                                    limparTela();
-                                    
-                                    Optional<Cliente> clienteComMaiorTotalMidiasAvaliadas = plataforma.getClientes().values().stream()
-                                                            .max(Comparator.comparingInt(Cliente::totalMidiasAvaliadas));
-                                    
-                                    if (clienteComMaiorTotalMidiasAvaliadas.isPresent()){
-
-                                        Cliente cliente = clienteComMaiorTotalMidiasAvaliadas.get();
-                                        int totalMidiasAvaliadas = cliente.totalMidiasAvaliadas();
-                                        System.out.println("Cliente com maior total de mídias assistidas: " + cliente.getNome());
-                                        System.out.println("Total de mídias Avalidas: " + totalMidiasAvaliadas);
-                                    } 
-                                    else {
-                                        System.out.println("Não há clientes com Mídias já assistidas");
-                                    }
-
-                                    
-                                    teclado.nextLine();
-                                    opcaosubmenurelatorios = subMenuRelatorios();
-                                    break;  
-                                
-                                    
-                                    case 3:
-                                    
-                                    int temp = (int) plataforma.getClientes().values().stream()
-                                                                     .filter(c -> plataforma.procurarClientePorLogin(c.getLogin()).totalMidiasAvaliadas() >= 15)
-                                                                     .count();
-                                                                     int totalClientes = plataforma.getClientes().size();
-                                    
-                                    System.out.println("Porcentagem de clientes que avaliaram mais de 15 Midias: "+((double) temp * 100 / totalClientes)+"%");                                    
-                                    
-                                    teclado.nextLine();
-                                    opcaosubmenurelatorios = subMenuRelatorios();
-                                    break;  
-                                    
-                                    //Quais sao as 10 midias com a melhor media de avaliacoes e que tenham sido vistas pelo menos 100 vezes, apresentadas em ordem decrescente");
-                                    case 4:
-
-                                        // plataforma.getMidias().values().stream()
-                                        //                                .filter(m -> m.getAvalicoesRecebidas() > 0)
-                                        //                                .forEach(Midia::calcularMediaAvalicao);
-
-                                        // List<Midia> midiasMaiorAvaliacao = new ArrayList<>();
-
-                                        // midiasMaiorAvaliacao = plataforma.getMidias().values().stream()
-                                        //                                .filter(m -> m.getAudiencia() >= 100)
-                                        //                                .sorted(Comparator.comparing(m -> m.getMediaAvaliacao()))
-                                        //                                .limit(10)
-                                        //                                .collect(Collectors.toList());
-
-
-                                        plataforma.getMidias().values().stream()
-                                                                        .filter(m -> m.getAudiencia() >= 100)
-                                                                        .limit(5)
-                                                                        .forEach(midia -> System.out.println(midia.getNome() + " - Audiência: " + midia.getAudiencia()+ " - Media Avaliacao: " +midia.getMediaAvaliacao() + " - Quantidade De avaliacoes Recebidas: " +midia.getAvalicoesRecebidas()));
-
-
-                                        // for (Midia midia : midiasMaiorAvaliacao) {
-                                        //     System.out.println(midia.getNome() + " - Média de Avaliações: " + midia.getMediaAvaliacao());
-                                        // }
-
-                                        teclado.nextLine();
-                                        opcaosubmenurelatorios = subMenuRelatorios();
-                                        break;  
-
-                                    //Quais sao as 10 midias com mais visualizacoes em ordem descrescente");
-                                    case 5:
-
-
-
-                                        teclado.nextLine();
-                                        opcaosubmenurelatorios = subMenuRelatorios();
-                                        break;  
-                                    
-                                    //Estes mesmos 2 ultimos relatorios, porem com as midias separadas por genero");
-                                    case 6:
-
-                                        teclado.nextLine();
-                                        opcaosubmenurelatorios = subMenuRelatorios();
-                                        break;  
-                                }   
-                            
-                        }
+                        casesMenuRelatorios(opcaosubmenurelatorios, plataforma);
+                        break;
+                        
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Arquivo não encontrado: " + e.getMessage());
