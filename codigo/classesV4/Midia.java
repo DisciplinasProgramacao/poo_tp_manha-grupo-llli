@@ -231,7 +231,7 @@ public class Midia{
     @Override
     public String toString() {
 
-        return ("IdMidia: "+this.idMidia+"|| Nome: "+this.nome+"|| Data de lançamento: "+this.dataDeLancamento.toString()+"|| Media De Avaliacoes: "+this.mediaAvaliacao);
+        return ("IdMidia: "+this.idMidia+"|| Nome: "+this.nome+"|| Data de lançamento: "+this.dataDeLancamento.toString()+"|| Media De Avaliacoes: "+this.mediaAvaliacao + " || Idiomas:" + this.idioma +"|| Generos: " + this.genero);
     }   
 
 
