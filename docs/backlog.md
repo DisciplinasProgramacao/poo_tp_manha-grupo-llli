@@ -15,7 +15,7 @@ Atualizado em 09/06/20022
 | 9. Implementação do sistema de avaliação de mídias: uma mídia tem sua avaliação média  | Igor ✔️     |
 | 10. Um cliente não pode avaliar a mesma mídia duas vezes;  | Igor ✔️     |
 | 11.Clientes podem ser regulares ou especialistas, e estes últimos podem adicionar comentários à avaliação  | Igor ✔️     |
-| 12. Definir exceções das classes do sistema |   |
+| 12. Definir exceções das classes do sistema | Grupo  |
 | 13. Desenvolvimento Menu principal      | Vitor      |
 | 14. Criar opções de Filtragens no Menu Principal     | Vitor      |
 | 15. Criar opções de Adicionar avaliação ou comentário      | Vitor      |
