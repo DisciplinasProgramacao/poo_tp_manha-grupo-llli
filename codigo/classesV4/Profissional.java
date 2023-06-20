@@ -4,4 +4,5 @@ public enum Profissional {
     
     Profissional,
     Não_profissional;
+    
 }

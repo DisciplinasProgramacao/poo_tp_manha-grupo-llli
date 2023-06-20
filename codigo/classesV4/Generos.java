@@ -1,6 +1,7 @@
 //Enumerador com a lista de gêneros possiveis nas mídias
 public enum Generos {
 
+    
     ACAO ("acao"),
     ANIME ("anime"),
     AVENTURA ("aventura"),

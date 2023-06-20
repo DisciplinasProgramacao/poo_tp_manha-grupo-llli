@@ -41,8 +41,6 @@ public class Cliente{
 
 
 
-
-
     /**
     *
     * Vai dar valor os atributos do Cliente, Além de instanciar os Maps de seriesJaAssistidas e seriesAssistirFuturamente

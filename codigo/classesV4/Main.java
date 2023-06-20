@@ -242,9 +242,6 @@ public static int subMenuCliente() {
         return opcao;
     }
 
-
-
-
     public static int subMenuFiltros() {
         System.out.println("");
         System.out.println("==========================");

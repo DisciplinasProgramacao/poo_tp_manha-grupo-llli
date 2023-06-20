@@ -225,8 +225,6 @@ public class Plataforma {
     }
 
   
-
-
     /*
     * Função para Procurar uma Midia por idMidia e retorna a Midia caso encontrado
     * @param idMidia

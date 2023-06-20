@@ -320,8 +320,6 @@ public class Midia{
         return;
     }
 
-
-
     /*
     * Printa os elementos do Set de idiomas caso necessario
     */
