@@ -27,6 +27,8 @@ public class Midia{
     
     protected Date dataDeLancamento;
 
+    protected Lancamento lancamento;
+
     protected Map <String, String> comentarioRecebidos;
 
     protected Set<String> clientesAvaliadores; //Set de Clientes que avaliaram a midia
@@ -194,6 +196,19 @@ public class Midia{
 
         return;
     }
+    /**
+    * Adiciona se a mídia é lançamento ou não 
+    * @param tipo que sera adicionado
+    */
+    public void adicionarLancamento (Lancamento tipo){
+
+        if(lancamento == null){
+            lancamento = tipo;
+        }
+        else{
+            System.out.println("Mídia já tem tipo de lançamento.");
+        }
+    }
 
 
     /**
@@ -231,7 +246,7 @@ public class Midia{
     @Override
     public String toString() {
 
-        return ("IdMidia: "+this.idMidia+"|| Nome: "+this.nome+"|| Data de lançamento: "+this.dataDeLancamento.toString()+"|| Media De Avaliacoes: "+this.mediaAvaliacao + " || Idiomas:" + this.idioma +"|| Generos: " + this.genero);
+        return ("IdMidia: "+this.idMidia+"|| Nome: "+this.nome+"|| Data de lançamento: "+this.dataDeLancamento.toString()+"|| Media De Avaliacoes: "+this.mediaAvaliacao + " || Idiomas:" + this.idioma +"|| Generos: " + this.genero + "|| "+ this.lancamento);
     }   
 
 
@@ -368,5 +383,8 @@ public class Midia{
         calcularMediaAvalicao();
 
         return this.mediaAvaliacao;
+    }
+    public Lancamento getLancamento(){
+        return this.lancamento;
     }
 }
