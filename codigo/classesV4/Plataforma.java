@@ -225,8 +225,6 @@ public class Plataforma {
     }
 
   
-
-
     /*
     * Função para Procurar uma Midia por idMidia e retorna a Midia caso encontrado
     * @param idMidia
@@ -249,15 +247,19 @@ public class Plataforma {
         else return null;
     }
 
-    public void getNomeMidias() {
-
-        System.out.println("Lista geral de filmes e séries");
-       
-        for (Midia midia : midias.values()) {
+     public void getNomeMidias() {
+        // código para teste de catalogo
+        // é exibido algumas midias do catalogo antes do filtro
+           System.out.println("Lista geral de filmes e séries");
+           int contador = 0;
+            for (Midia midia : midias.values()) {
+                if (contador >= 15) {
+                    break;
+                }
             System.out.println("==========================");
-            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
-        }
-
+            System.out.println(midia.toString());
+            contador++;
+         }
     }
 
     

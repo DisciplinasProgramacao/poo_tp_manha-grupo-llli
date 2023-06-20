@@ -27,12 +27,14 @@ public class Midia{
     
     protected Date dataDeLancamento;
 
+    protected Lancamento lancamento;
+
     protected Map <String, String> comentarioRecebidos;
 
     protected Set<String> clientesAvaliadores; //Set de Clientes que avaliaram a midia
     protected List<Avaliacoes> avaliacoesRecebidas;
 
-    protected Set<String> genero;
+    protected Set<Generos> genero;
     protected Set<String> idioma;
 
     protected SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -168,7 +170,7 @@ public class Midia{
     * Adiciona um novo serie ao Set de genero 
     * @param tipoGenero que sera adicionada
     */
-    public void adicionarGenero (String tipoGenero){
+    public void adicionarGenero (Generos tipoGenero){
 
         if (genero == null){
 
@@ -194,13 +196,26 @@ public class Midia{
 
         return;
     }
+    /**
+    * Adiciona se a mídia é lançamento ou não 
+    * @param tipo que sera adicionado
+    */
+    public void adicionarLancamento (Lancamento tipo){
+
+        if(lancamento == null){
+            lancamento = tipo;
+        }
+        else{
+            System.out.println("Mídia já tem tipo de lançamento.");
+        }
+    }
 
 
     /**
     * Remove um genero do Set de genero
     * @param nomeGenero a ser removido
     */
-    public void removerGenero (String nomeGenero){
+    public void removerGenero (Generos nomeGenero){
         
         if (this.genero != null){
             this.genero.remove(nomeGenero);
@@ -231,7 +246,7 @@ public class Midia{
     @Override
     public String toString() {
 
-        return ("IdMidia: "+this.idMidia+"|| Nome: "+this.nome+"|| Data de lançamento: "+this.dataDeLancamento.toString()+"|| Media De Avaliacoes: "+this.mediaAvaliacao + " || Idiomas:" + this.idioma +"|| Generos: " + this.genero);
+        return ("IdMidia: "+this.idMidia+"|| Nome: "+this.nome+"|| Data de lançamento: "+this.dataDeLancamento.toString()+"|| Media De Avaliacoes: "+this.mediaAvaliacao + " || Idiomas:" + this.idioma +"|| Generos: " + this.genero + "|| "+ this.lancamento);
     }   
 
 
@@ -242,14 +257,14 @@ public class Midia{
     * @return True, se o método existe no Set genero
     * @return False, se o método nao existe no Set genero
     */
-    public boolean compararGenero (String generoParaComparar){
+    public boolean compararGenero (Generos generoParaComparar){
         
         if (this.genero!=null){
 
-            Iterator<String> iterator = this.genero.iterator();
+            Iterator<Generos> iterator = this.genero.iterator();
 
             while (iterator.hasNext()) {
-                String elemento = iterator.next();
+                Generos elemento = iterator.next();
             
                 if (generoParaComparar.equals(elemento)){
                     return true;
@@ -294,18 +309,16 @@ public class Midia{
         
         if (this.genero!=null){
 
-            Iterator<String> iterator = genero.iterator();
+            Iterator<Generos> iterator = genero.iterator();
 
             while (iterator.hasNext()) {
-                String elemento = iterator.next();
+                Generos elemento = iterator.next();
                 System.out.println(elemento);
             }
         }
 
         return;
     }
-
-
 
     /*
     * Printa os elementos do Set de idiomas caso necessario
@@ -352,7 +365,7 @@ public class Midia{
         return this.idMidia;
     }
 
-    public Set<String> getGeneros(){
+    public Set<Generos> getGeneros(){
 
         return this.genero;
     }
@@ -368,5 +381,8 @@ public class Midia{
         calcularMediaAvalicao();
 
         return this.mediaAvaliacao;
+    }
+    public Lancamento getLancamento(){
+        return this.lancamento;
     }
 }

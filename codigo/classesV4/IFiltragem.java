@@ -20,7 +20,7 @@ public interface IFiltragem {
     * retorna um Set de Midias com o genero desejado
     * @param genero a ser procurado no catalogo
     */
-    public Set<Midia>filtrarGenero(String filtrarPorGenero,Map<String, Midia> midiasPlataforma);    
+    public Set<Midia>filtrarGenero(Generos filtrarPorGenero,Map<String, Midia> midiasPlataforma);    
     
 
     /*

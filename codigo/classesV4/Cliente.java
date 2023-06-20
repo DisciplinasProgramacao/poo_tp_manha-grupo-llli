@@ -1,8 +1,10 @@
 import java.util.Map;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.Iterator;
+import java.util.List;
 
 /*
 * Classe Cliente: Agregação com "Plataforma", Composição com interface IComentar
@@ -17,6 +19,7 @@ public class Cliente{
     private Icomentar tipoCliente;
     public IFiltragem aplicadorDeFiltros = new FiltrosDeMidias();
     private Stack<Avaliacoes> avaliacoesFeitas;
+    private Profissional profissional;
 
     private Map<Integer, Midia> mapMidiaAssistirFuturamente;
     private Map<Integer, Midia> mapMidiaJaAssistidas;
@@ -35,8 +38,6 @@ public class Cliente{
 
         init(nome,login, senha);
     }
-
-
 
 
 
@@ -69,6 +70,7 @@ public class Cliente{
     */
     public void adicionarMidia(Midia midia, char tipoLista ){
         
+
         //Se o tipolista = 'F' adicionaremos no map de Assistir futuramente
         if (0 == Character.valueOf(tipoLista).compareTo(Character.valueOf('F'))){
             
@@ -78,14 +80,17 @@ public class Cliente{
 
         //Se o tipolista = 'A' adicionaremos no map de midias Ja Assistidas
         else if (0 == Character.valueOf(tipoLista).compareTo(Character.valueOf('A'))){
-            
+            if(this.profissional==Profissional.Não_profissional && midia.getLancamento()==Lancamento.Lançamento){
+                return;
+            }
+            else{
             mapMidiaJaAssistidas.put(midia.getId(), midia);
             midia.registrarAudiencia(this.mapMidiaJaAssistidas);
-
+            }
         }
         else{
             System.out.println("Lista invalida");
-        }        
+        }  
         return;       
     }
 
@@ -109,23 +114,26 @@ public class Cliente{
     */
     public void avaliarMidia (Midia midiaParaAvaliar, int notaParaMidia){
 
-
+        if(this.profissional==Profissional.Não_profissional && midiaParaAvaliar.getLancamento()==Lancamento.Lançamento){
+            System.out.println("Cliente não profissional não pode avaliar mídias lançamento.");
+        }
+        else{
         //O cliente so pode avaliar Midias Ja asisstidas
-        if (jaAssitiuMidia(midiaParaAvaliar)){
+            if (jaAssitiuMidia(midiaParaAvaliar)){
 
-            Avaliacoes temp = midiaParaAvaliar.receberAvaliacao(this.login, notaParaMidia);
+                Avaliacoes temp = midiaParaAvaliar.receberAvaliacao(this.login, notaParaMidia);
 
-            if (temp != null){
+                if (temp != null){
 
-                this.avaliacoesFeitas.push(temp);
+                    this.avaliacoesFeitas.push(temp);
+                }
+                
             }
-            
-        }
-        else {
+            else {
 
-            System.out.println("Nao pode avaliar uma Midia que nao foi assistida");
+                System.out.println("Nao pode avaliar uma Midia que nao foi assistida");
+            }
         }
-    
     }
 
 
@@ -167,6 +175,11 @@ public class Cliente{
        if (comentariosNoMesAnterior >= 5)this.tipoCliente = new ClienteComentarista();
 
        else this.tipoCliente = null;
+    }
+
+    public void addProfissional(Profissional prof){
+            profissional=prof;
+    
     }
 
 
@@ -241,22 +254,20 @@ public class Cliente{
         return this.senha;
     }
 
-    public void getNomeMidiasJaAssistidas() {
-        System.out.println("Lista geral de filmes e séries já assistidos");
-        for (Midia midia : mapMidiaJaAssistidas.values()) {
-            System.out.println("==========================");
-            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
-        }
+    public Profissional getProfissional(){
+        return this.profissional;
+    }
+
+   public Map<Integer, Midia> getMidiasJaAssistidas() {
+        return mapMidiaJaAssistidas;
     }
 
 
-    public void getNomeMidiasAssistirFuturamente() {
-        System.out.println("Lista geral de filmes e séries que desejo assistir futuramente");
-        for (Midia midia : mapMidiaAssistirFuturamente.values()) {
-            System.out.println("==========================");
-            System.out.println("Nome: "+ midia.getNome()+ " -- Audiencia :"+ midia.getAudiencia());
-        }
-    }
+   
+     public Map<Integer, Midia> getMidiasFuturamente() {
+        return mapMidiaAssistirFuturamente;
+}
+
 
 
 

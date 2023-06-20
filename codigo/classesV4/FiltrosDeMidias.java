@@ -44,7 +44,7 @@ public class FiltrosDeMidias implements IFiltragem{
     * retorna um Set de Midias com o genero desejado
     * @param genero a ser procurado no catalogo
     */
-    public Set<Midia>filtrarGenero(String filtrarPorGenero,Map<String, Midia> midiasPlataforma){
+    public Set<Midia>filtrarGenero(Generos filtrarPorGenero,Map<String, Midia> midiasPlataforma){
         
         Set<Midia> midiasGenerosIguais = new HashSet<>();
 
@@ -53,9 +53,9 @@ public class FiltrosDeMidias implements IFiltragem{
 
             Midia midia = entry.getValue();
 
-            Set <String> generos = midia.getGeneros();
+            Set <Generos> generos = midia.getGeneros();
             
-            for (String genero : generos){
+            for (Generos genero : generos){
 
                 if (generos.contains(filtrarPorGenero)){
 
