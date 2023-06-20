@@ -40,6 +40,10 @@ public class Main {
             }
         }
 
+        plataforma.procurarClientePorLogin("Igor").addProfissional(Profissional.Profissional);
+        plataforma.procurarClientePorLogin("Mit133739").addProfissional(Profissional.Não_profissional);
+
+
         plataforma.cadastrarSerie("arquivosDeLeitura/POO_Series.csv");
         plataforma.cadastrarFilme("arquivosDeLeitura/POO_Filmes.csv");
         Map<String, Midia> midias = plataforma.getMidias();
@@ -118,7 +122,7 @@ public class Main {
                 }
             }
         }
-        /* 
+        
         try {
 
            //Cria um objeto Scanner para ler o arquivo
@@ -132,7 +136,7 @@ public class Main {
                 String[] campos = linha.split(";");
                 
                 Midia temp = plataforma.procurarMidiaPorId(campos[2]);
-
+                if(plataforma.procurarClientePorLogin(campos[0]).getProfissional()==Profissional.Profissional){
                 if (contador == 1)plataforma.procurarClientePorLogin(campos[0]).avaliarMidia(temp,contador);
                 else if (contador == 2)plataforma.procurarClientePorLogin(campos[0]).avaliarMidia(temp,contador);
                 else if (contador == 3)plataforma.procurarClientePorLogin(campos[0]).avaliarMidia(temp,contador);
@@ -144,6 +148,7 @@ public class Main {
                 }
                 contador++;
             }
+            }
             
            //Prencha o Scanner após a leitura do arquivo
             scanner.close();
@@ -152,7 +157,7 @@ public class Main {
             System.out.println("Arquivo não encontrado");
             e.printStackTrace();
         }
-        */
+    
 
         return plataforma;
     }

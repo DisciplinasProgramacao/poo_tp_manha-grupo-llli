@@ -178,12 +178,8 @@ public class Cliente{
     }
 
     public void addProfissional(Profissional prof){
-        if(profissional==null){
             profissional=prof;
-        }
-        else{
-            System.out.println("Esse usuario é"+this.profissional);
-        }
+    
     }
 
 
