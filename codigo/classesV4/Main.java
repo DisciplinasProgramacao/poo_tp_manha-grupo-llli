@@ -42,7 +42,7 @@ public class Main {
 
         plataforma.procurarClientePorLogin("Igor").addProfissional(Profissional.Profissional);
         plataforma.procurarClientePorLogin("Mit133739").addProfissional(Profissional.Não_profissional);
-
+        plataforma.procurarClientePorLogin("Vitor").addProfissional(Profissional.Não_profissional);
 
         plataforma.cadastrarSerie("arquivosDeLeitura/POO_Series.csv");
         plataforma.cadastrarFilme("arquivosDeLeitura/POO_Filmes.csv");
@@ -123,6 +123,7 @@ public class Main {
             }
         }
         
+        /* 
         try {
 
            //Cria um objeto Scanner para ler o arquivo
@@ -157,7 +158,7 @@ public class Main {
             System.out.println("Arquivo não encontrado");
             e.printStackTrace();
         }
-    
+        */
 
         return plataforma;
     }
@@ -208,6 +209,7 @@ public static int subMenuCliente() {
         System.out.println("4 - Avaliar Midia");
         System.out.println("5 - Comentar Midia");
         System.out.println("6 - Adicionar a lista de assistir futuramente");
+        System.out.println("7 - Adicionar a lista de assistidos");
         System.out.println("0 - Sair");
         System.out.print("\nSua opção: ");
         int opcao;
@@ -454,20 +456,36 @@ public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, St
                 Midia midiaAssistirFuturamente = plataforma.procurarMidiaPorNome(nomeMidiaAssistirFuturamente);
                 if (midiaAssistirFuturamente == null) {
                     System.out.println("O filme não existe.");
+
                 } else {
                     plataforma.procurarClientePorLogin(login).adicionarMidia(midiaAssistirFuturamente, 'F');
-                    System.out.println("O filme \"" + midiaAssistirFuturamente.getNome() + "\" foi adicionado à lista de assistir futuramente.");
-                    teclado.nextLine();
-                    limparTela();
-                    opcaosubmenu = subMenuCliente();
-                    break;
+                    System.out.println("O filme \"" + midiaAssistirFuturamente.getNome() + "\" foi adicionado à lista de assistir futuramente.");  
                 }
-
-            case 7:
                 teclado.nextLine();
                 limparTela();
                 opcaosubmenu = subMenuCliente();
-                break;       
+                break;
+
+            case 7:
+                System.out.println("Escreva o nome da mídia que deseja marcar como assistida");
+                String nomeMidiaAssistirAssistidas = scanner.nextLine();
+                Midia midiaAssitida = plataforma.procurarMidiaPorNome(nomeMidiaAssistirAssistidas);
+                if (midiaAssitida == null) {
+                    System.out.println("O filme não existe.");
+                    
+                } else {
+                    if(plataforma.procurarClientePorLogin(login).getProfissional()==Profissional.Não_profissional && midiaAssitida.getLancamento()==Lancamento.Lançamento){
+                        System.out.print("Voce nao pode assistir essa midia");
+                    }
+                    else{
+                    plataforma.procurarClientePorLogin(login).adicionarMidia(midiaAssitida, 'A');
+                    System.out.println("O filme \"" + midiaAssitida.getNome() + "\" foi adicionado à lista de assistidos ");
+                    }
+                } 
+                teclado.nextLine();
+                limparTela();
+                opcaosubmenu = subMenuCliente();
+            break;    
         }   
     }  
 }
