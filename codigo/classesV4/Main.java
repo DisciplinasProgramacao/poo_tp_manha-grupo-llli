@@ -586,50 +586,66 @@ public static void casesMenuRelatorios(int opcaosubmenurelatorios , Plataforma p
                 
                 //Quais sao as 10 midias com a melhor media de avaliacoes e que tenham sido vistas pelo menos 100 vezes, apresentadas em ordem decrescente");
                 case 4:
+                limparTela();
+                List<Midia> midiasComMelhorMedia = plataforma.getMidias().values().stream()
+                        .filter(m -> m.getAudiencia() >= 100)
+                        .sorted(Comparator.comparing(Midia::getMediaAvaliacao))
+                        .collect(Collectors.toList());
 
-                    // plataforma.getMidias().values().stream()
-                    //                                .filter(m -> m.getAvalicoesRecebidas() > 0)
-                    //                                .forEach(Midia::calcularMediaAvalicao);
+                System.out.println("Top 10 mais bem avaliadas:\n");
+                for (int i = 0; i < 10; i++){
+                    int total = midiasComMelhorMedia.size()-1;
+                    Midia midia = midiasComMelhorMedia.get(total - i);
+                    System.out.printf("\t%d#: %s: %.2f (%d visualizações)\n", i+1, midia.getNome(), midia.getMediaAvaliacao(), midia.getAudiencia());
+                }
 
-                    // List<Midia> midiasMaiorAvaliacao = new ArrayList<>();
-
-                    // midiasMaiorAvaliacao = plataforma.getMidias().values().stream()
-                    //                                .filter(m -> m.getAudiencia() >= 100)
-                    //                                .sorted(Comparator.comparing(m -> m.getMediaAvaliacao()))
-                    //                                .limit(10)
-                    //                                .collect(Collectors.toList());
-
-
-                    plataforma.getMidias().values().stream()
-                                                    .filter(m -> m.getAudiencia() >= 100)
-                                                    .limit(5)
-                                                    .forEach(midia -> System.out.println(midia.getNome() + " - Audiência: " + midia.getAudiencia()+ " - Media Avaliacao: " +midia.getMediaAvaliacao() + " - Quantidade De avaliacoes Recebidas: " +midia.getAvalicoesRecebidas()));
-
-
-                    // for (Midia midia : midiasMaiorAvaliacao) {
-                    //     System.out.println(midia.getNome() + " - Média de Avaliações: " + midia.getMediaAvaliacao());
-                    // }
-
-                    teclado.nextLine();
-                    opcaosubmenurelatorios = subMenuRelatorios();
-                    break;  
+                teclado.nextLine();
+                opcaosubmenurelatorios = subMenuRelatorios();
+                break;  
 
                 //Quais sao as 10 midias com mais visualizacoes em ordem descrescente");
-                case 5:
+            case 5:
+                limparTela();
 
+                List<Midia>  midiasComMaisVisualizacoes = plataforma.getMidias().values().stream()
+                    .sorted(Comparator.comparing(Midia::getAudiencia))
+                    .collect(Collectors.toList());
 
-
-                    teclado.nextLine();
-                    opcaosubmenurelatorios = subMenuRelatorios();
-                    break;  
+                System.out.println("Top 5 mais visualizados:\n");
+                for (int i = 0; i < 5; i++){
+                    int total = midiasComMaisVisualizacoes.size()-1;
+                    Midia midia = midiasComMaisVisualizacoes.get(total - i);
+                    System.out.printf("\t%d#: %s (%d visualizações)\n", i+1, midia.getNome(), midia.getAudiencia());
+                }
+                
+                teclado.nextLine();
+                opcaosubmenurelatorios = subMenuRelatorios();
+                break;  
                 
                 //Estes mesmos 2 ultimos relatorios, porem com as midias separadas por genero");
-                case 6:
+            case 6:
+                limparTela();
+                for (Generos genero : Generos.values()) {
+                    System.out.printf("#%s\n", genero);
+                    
+                    List<Midia> midiasPorGenero = plataforma.getMidias().values().stream()
+                        .filter(m -> m.getGeneros().contains(genero))
+                        .filter(m -> m.getAudiencia() >= 100)
+                        .sorted(Comparator.comparing(Midia::getAudiencia))
+                        .collect(Collectors.toList());
+                    
+                    for (int i = 0; i < 5; i++){
+                        int total = midiasPorGenero.size()-1;
+                        Midia midia = midiasPorGenero.get(total - i);
+                        System.out.printf("\t-%s: %.2f (%d visualizações) %s\n", midia.getNome(), midia.getMediaAvaliacao(), midia.getAudiencia(), midia.getGeneros().toString());
+                    }
 
-                    teclado.nextLine();
-                    opcaosubmenurelatorios = subMenuRelatorios();
-                    break;  
-            }   
+                    System.out.println("\n");
+                }
+                teclado.nextLine();
+                opcaosubmenurelatorios = subMenuRelatorios();
+                break;  
+            }
         
     }
 
