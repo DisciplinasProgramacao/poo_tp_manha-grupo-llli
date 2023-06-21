@@ -250,10 +250,11 @@ public class Plataforma {
      public void getNomeMidias() {
         // código para teste de catalogo
         // é exibido algumas midias do catalogo antes do filtro
+        // foi limitado em 50 apenas para não exibir muitos dados na tela
            System.out.println("Lista geral de filmes e séries");
            int contador = 0;
             for (Midia midia : midias.values()) {
-                if (contador >= 15) {
+                if (contador >= 50) {
                     break;
                 }
             System.out.println("==========================");
