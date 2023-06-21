@@ -275,10 +275,11 @@ public static void casesMenuUsuario(int opcaosubmenu , Plataforma plataforma, St
     while (opcaosubmenu!=0){
         switch (opcaosubmenu) {
             case 1:
-            plataforma.getNomeMidias();
-            System.out.println("\n Pressione Enter para voltar ao menu do usuário");
-            teclado.nextLine();
             limparTela();
+            plataforma.getNomeMidias();
+            int opcaosubmenufiltros = subMenuFiltros();
+            casesMenuCatalogo(opcaosubmenufiltros, plataforma);      
+                       
             break;
 
             case 2:
