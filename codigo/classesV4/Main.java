@@ -643,6 +643,7 @@ case 2:
    
         System.out.println("\nDigite o idioma que deseja buscar:");
         String idioma = teclado.nextLine();
+        idioma = idioma.toLowerCase();
         Set<Midia> midiasFiltradasidioma = plataforma.procurarClientePorLogin(login).aplicadorDeFiltros.filtrarIdioma(idioma, mapMidiasUsuarios);
         if (midiasFiltradasidioma.isEmpty()) {
             System.out.println("Nenhum resultado encontrado para o idioma: " + idioma);
